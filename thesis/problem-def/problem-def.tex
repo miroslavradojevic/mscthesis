@@ -1,0 +1,11 @@
+\chapter{Problem Definition} \label{chap:problem-def}
+The aim of the project is to implement and evaluate navigation algorithm for an underwater vehicle. Navigation, as introduced in literature, implies two capabilities \cite{farrell98}:
+\begin{itemize}
+\item localization - accurate determination of the vehicle position and velocity with respect to a known reference point
+\item planning and the execution of the movements between locations   
+\end{itemize} 
+The work presented in the thesis will emphasize the first capability. Moreover, the first capability is a necessary step in carrying out the second capability correctly. To accomplish the task, sensor information is integrated in calculations. The purpose is to calculate the vehicle position in every moment as accurately as possible. Mathematical tool that will integrate the measurements and establish the final estimate is well known Kalman filter \cite{} algorithm. More details about Kalman filter in chapter \label{chap:KalmanFilter}. 
+
+It is important to mention that localization under water tends to be different challenge compared with the localization on land or in the air. Namely, the usage of GPS signal is limited since it is available only on water surface. Therefore, speed and heading information obtained from inertial navigation system (INS) sensors is used together with the mathematical model of the motion to calculate the position, orientation and velocity via dead reckoning. Such strategy eventually leads to progressive error since measurement errors are integrated each time. To overcome this, GPS information which gives absolute distance is used to make corrections. It updates the position information whenever available - either directly, if the vehicle is on the surface or using long baseline acoustic positioning (LBL).
+
+Another obstacle in managing localization is water environment itself. Usage of sensors based on light transmission such as camera, is limited because environment is such that it deforms or decreases the signal. A useful tool to determine the distance or the speed in water is sound, a mechanical wave that does not severely depend on light conditions and moves faster in water.  

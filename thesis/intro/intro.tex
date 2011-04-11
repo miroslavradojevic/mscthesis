@@ -1,0 +1,69 @@
+\chapter{Introduction} \label{chap:intro}
+
+\section{Why underwater?} \label{sect:thefirst}
+
+Manhood has managed to conquer variety of environments. At some point, humans could walk on the moon, send expeditions to cold or remote areas in different corners of the planet. Sea-floor constitutes the largest part of Earth's surface.
+\subsection{Localization - Where the Robot Is?}
+One of the main capabilities of the autonomous underwater vehicle is knowing to localize itself within an environment. To estimate its metric position and orientation in three dimensional space. Knowing where it actually is enables further tasks such as path tracking or various manipulation tasks. Therefore, it has the same role as parts of the human brain devoted to navigation.  
+
+
+The main topic is localization of an underwater vehicle. Localization essentially deals with the problem of the estimation of the position of the vehicle. A tool to accomplish it is the sensor measurement. Main idea is to establish the matching between the sensor measurements and the map elements. This process is not straightforward since many conditions influence the performance, including the very starting point of the localization: whether we have some previous estimate on the position or not \cite{ribas10}. Localization can be carried through by analysing the pose possibilities and choosing the one that reaches better coherence between the measurements and the map. Such methods are Monte Carlo localization and Markov localization. The other approach, a set of hypotheses for coupling together the sensor measurements and the map features. These hypotheses are ranked depending on number of consistent matches where the one with highest ranking is defining the position. This can be a costly process, therefore a number of methods deals with optimization of it. 
+
+ using Kalman filter. Mathematical background is in: \cite{Maybeck79}.
+
+\section{Literature review} \label{sect:lit-rev}
+Mention the PhD thesis \cite{ribas10}.
+
+Localization exploring map or scan matching techniques was presented in \cite{Cox91} and \cite{Lu97}. 
+
+Approach that uses geometrical landmarks in Kalman filters is explained in \cite{Leonard91}. These led to SLAM.
+
+One work from HW is \cite{Ruiz01}.
+
+%%\subsection{Paper}
+%%The manuscript should be in A4 size, and the printed paper should
+%%be of at least 70 gsm.
+%%
+%%\subsection{Font and margins}
+%%Thesis should be printed on both sides of the paper. Use no less
+%%than 1.5 spacing, with quotations and notes single-spaced.
+%%Regarding \textbf{Character size}, not less than 2.0mm for
+%%capitals and 1.5mm for x-height (the height of a lower-case x). Us
+%%a serif font (i.e. Times) between 10 and 12 points. Use consistent
+%%and clear fonts through all the document.
+%%
+%%The text layout should be approximately as follows:
+%%
+%%\begin{itemize}
+%%    \item $4cm$ binding margin
+%%    \item $2cm$ head margin (top of page)
+%%    \item $2.5cm$ fore-edge margin
+%%    \item $4cm$ tail margin (bottom of page)
+%%\end{itemize}
+%%
+%%\section{Title Page}
+%%The title page should contain the title of thesis, authors name,
+%%and at the foot of the page: the name of degree,  Your University,
+%%and the year of presentation. Something like this:
+%%
+%%\vspace*{1cm}
+%%\begin{center}
+%%{\Large\bf MSc. Thesis example VIBOT\\} \vspace{2cm} {\large
+%%Robert Mart\'i\\
+%%\vspace{1cm}
+%%Department of Computer Architecture and Technology \\
+%%University of Girona}
+%%
+%%\end{center}
+%%
+%%\vspace{2cm}
+%%\begin{center}
+%%{\large A Thesis Submitted for the Degree of MSc Erasmus Mundus in
+%%Vision and Robotics (VIBOT)\\ \vspace{0.3cm} $\cdot$ 2008 $\cdot$}
+%%\end{center}
+%%
+%%
+%%\subsection{References}
+%%You can reference other authors by using the $cite command$
+%%\cite{Pokorski:1998hr}. You are encouraged to use bib files and
+%%let bibtex do the job for you.
