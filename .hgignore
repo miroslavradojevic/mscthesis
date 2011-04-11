@@ -1,0 +1,10 @@
+# use glob syntax.
+syntax: glob
+
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*~
+
