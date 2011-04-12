@@ -1,0 +1,5 @@
+\chapter{Kalman filtering} \label{chap:kalman}
+
+Kalman filter is well known algorithm, covered in various literature. It is an optimal estimator that works recursively, through iterations. One of its particularly useful features is the ability to combine together sensor measurements in mathematical form such that the solution is optimal with respect to criteria ???.
+
+Kalman gain determines the relationship between the importance of each previous estimation () and the current measurement (). Essentially - it expresses how much we trust in the measurement with respect to what we prediceted. According to the formula (), it is determined by matrices $Q$ and $R$ which represent process noise covariance and the measurement noise covariance (uncertainty), respectively. It takes values between 0 and 1 with 0 meaning that we use estimation only and give no importance to the measurement, and 1 that we consider direct measurement as the only important one.   

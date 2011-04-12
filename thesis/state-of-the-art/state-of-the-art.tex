@@ -1,3 +1,30 @@
 \chapter{State of the art} \label{chap:state-of-the-art}
 
-This chapter gives an overview of the methods and existing algorithms for underwater vehicle localization. In existing survey on underwater vehicle navigation, Kingsey et al. \cite{kinsey06} already give a summary presenting some methods used. As stated in \cite{kinsey06}, localization is influenced with the development sensor devices. Chapter \S~\ref{chap:sensors} gives more insight into performance of each sensor device used for 
+This chapter gives an overview of the methods and existing algorithms for underwater vehicle localization. Localization is influenced with the development sensor devices. Sensors can be regarded as the tool for managing the localization. Faster they are, more accurate they are, localization has more chances to be better. Chapter \S~\ref{chap:sensors} gives more insight into performance of each sensor device used for underwater vehicle navigation. Following paragraphs are revising the ways to process such sensor information. We could describe localization as absolute or relative, depending on which reference system we use when obtaining measurements - environment or the vehicle itself. 
+
+In existing survey on underwater vehicle navigation, Kingsey et al. \cite{kinsey06} already give a summary presenting some methods used. As introduced in \cite{kinsey06}, current vehicle position is named navigation state - a vector where the vehicle is and how it is oriented in space. Localization simply means finding a way to estimate navigation state vector. Naturally, sonsors provide the data for estimation.
+
+The most simple approach would be to take the raw sensor measurements and use them directly or within a simple mathematical model that describes the vehicle dynamics. However, many techniques utilize sensor data as supplementary information with the information from the kinematic model. Rough classification would categorize localization methods on stochastic state estimators (Section ~\ref{sec:stochastic-methods}), simultaneous localization and mapping approach (SLAM, Section ~\ref{sec:slam} and localization based on deterministic observers \cite{kinsey06}.
+
+\section{Stochastic state estimators} \label{sec:stochastic-methods}
+The name of such methods suggests that states are treated as ultimately having feature of randomness built-in. As it is the case with random variables, we can say that certain state has an expected value, and that such randomness can be expressed with the distribution formula. This approach is hitorically. Most notable stachastic state estimator is Kalman filter. Kalman filter is an unbiased, optimal estimator which treats random variable as it has gaussian distribution. In case of an underwater vehicle localization is accomplished using Kalman Filter (KF) or an Extended Kalman Filter (EKF). Several works report on usage of Kalman filters for state estimation. 
+
+Kalman filter output could be corrupted in situations when observations (sensor measurements) are subject to interruption or periodic stopping. Due to the fact that not all the sensors can be always available, it is usually necessary to be capable of adding or removing sensor observations from the system without changing the navigation algorithm. 
+
+Blain et al. \cite{blain03} study application of Kalman filter in navigation of an underwater vehicle used for water dam inspection merging position and velocity information. This example uses acoustic positioning sensor to measure the position directly and the integration the DVL sensor velocities \cite{blain03}  asynchronous data delivery and delays in measurements
+
+
+Drolet et al. \cite{drolet00} introduce a flexible localization strategy based on sensor fusion and usage of several Kalman filters arranged together in a bank. Each filter is reduced to express simple cinematic equation and processes one state - works in one dimension. Idea is to integrate together sensor measurements that arrive at different time moments from different sensors. Method takes asynchronous information from sensors, manages a filter switching process so that the most recent data is used to update those filters that can be updated with such measurement \cite{drolet00}. Such sensor fusion strategy is adaptable in terms of number of sensors so that the best is taken out from the available input data, more robust to data loss. Moreover, asynchronous inputs are allowed. 
+
+\cite{diMassa97}
+\cite{gade99}
+\cite{eustice05}
+\cite{roman05}
+\cite{yun00}
+\section{SLAM} \label{sec:slam}
+
+\section{Deterministic state estimators}
+ 
+
+
+
