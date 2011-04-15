@@ -48,10 +48,15 @@ Kalman gain determines the relationship between the importance of each previous 
 
 \section{Extended Kalman Filter (EKF)}
 
-Real world models are rarely linear. The motiv for developing the Extended Kalman Filter is the adaptation of the linear Kalman Filter to dealing with nonlinear problems. However, it is possible that EKF significantly declines the performance quality \cite{julier96}. When making a prediction of state, observation or uncertainty of any of those for nonlinear systems, linearization can introduce errors. One example of such case is given in \cite{julier96}. The object follows the circular path. In such quite common case, the reason for failing in prediction is in linear approximations that EKF, by nature, uses when predicting the next state and its characteristics.
+Real world models are rarely linear. The motiv for developing the Extended Kalman Filter is the adaptation of the linear Kalman Filter to dealing with nonlinear problems. However, it is possible that EKF significantly declines the performance quality \cite{julier96}. When making a prediction of state, observation or uncertainty of any of those for nonlinear systems, linearization can introduce errors. The innacuracies of the EKF estimates are caused by truncating errors in Taylor series when diong an approximation. One example of such case is given in \cite{julier96}. The object follows the circular path. In such quite common case, the reason for failing in prediction is in linear approximations that EKF, by nature, uses when predicting the next state and its characteristics.
 
 \section{Unscented Kalman Filter (UKF)}
-Calculation-wise, the whole procedure is better than linearisation algorithm since there is no need for calculating the Jacobian, number of computations stays the same and it is easier to improvise with the algorithm by constraining or changing the samples \cite{julier96}.
+Calculation-wise, the whole procedure is better than linearisation algorithm since there is no need for calculating the Jacobian, number of computations stays the same and it is easier to improvise with the algorithm by constraining or changing the samples 
+
+\subsection{Unscented transformation (UT)}
+
+
+\cite{julier96}.
 \begin{algorithm}
 \caption{UKF algorithm}
 \label{alg:ukf}                   
