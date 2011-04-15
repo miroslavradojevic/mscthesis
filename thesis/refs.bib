@@ -1,46 +1,68 @@
-@Article{Pokorski:1998hr,
-     author    = "Witold Pokorski and Graham G. Ross",
-     title     = "Flat directions, string compactification and three
-                  generation models",
-     year      = "1998",
-     eprint    = "hep-ph/9809537"
-}
-@Article{Ghilencea:1998st,
-     author    = "Dumitru Ghilencea and Graham G. Ross",
-     title     = "Unification and extra space-time dimensions",
-     year      = "1998",
-     eprint    = "hep-ph/9809217"
-}
-@Article{Amelino-Camelia:1998tm,
-     author    = "G. Amelino-Camelia and Dumitru Ghilencea and Graham G. Ross
-                  ",
-     title     = "The Effect of Yukawa couplings on unification predictions
-                  and the nonperturbative limit",
-     journal   = "Nucl. Phys.",
-     volume    = "B528",
-     year      = "1998",
-     pages     = "35",
-     eprint    = "hep-ph/9804437"
-}
+@book{ribas10,
+  title={{Underwater slam for structured environments using an imaging sonar}},
+  author={Ribas, D. and Ridao, P. and Neira, J.},
+  isbn={3642140394},
+  year={2010},
+  publisher={Springer Verlag}
+},
+%%%%% GENERAL LITERATURE ON KALMAN AND NAVIGATION %%%%%%%
+@book{grewal01,
+  title={{Kalman filtering: theory and practice using MATLAB}},
+  author={Grewal, M.S. and Andrews, A.P. and Ebooks Corporation},
+  isbn={0471392545},
+  year={2001},
+  publisher={Wiley Online Library}
+},
+@book{ristic04,
+  title={{Beyond the Kalman filter: Particle filters for tracking applications}},
+  author={Ristic, B. and Arulampalam, S. and Gordon, N.},
+  isbn={158053631X},
+  year={2004},
+  publisher={Artech House Publishers}
+},
 @book{farrell98,
 	edition = {1},
-	title = {The Global Positioning System \& Inertial Navigation},
+	title = {{The Global Positioning System \& Inertial Navigation}},
 	isbn = {9780070220454},
 	publisher = {{McGraw-Hill} Professional},
 	author = {Jay Farrell and Jay A. Farrell},
 	month = dec,
 	year = {1998}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+},
+%%%%%%%%%%%% LIT. REVIEW REFS. %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% thesises %%%%%%%%%%%%%%%%%
+@phdthesis{negenborn03,
+  title={{Robot localization and kalman filters}},
+  author={Negenborn, R.},
+  year={2003},
+  school={Citeseer}
+},
+@conference{bahr08,
+  title={{Cooperative localization for autonomous underwater vehicles}},
+  author={Bahr, A. and Leonard, J.},
+  booktitle={Experimental Robotics},
+  pages={387--395},
+  year={2008},
+  organization={Springer}
+},
+%%%%%%%%%%%%%% SURVEYS %%%%%%%%%%%%%%%%%
 @conference{kinsey06,
   title={{A survey of underwater vehicle navigation: Recent advances and new challenges}},
   author={Kinsey, J.C. and Eustice, R.M. and Whitcomb, L.L.},
   booktitle={Proceedings of the 7th Conference on Maneuvering and Control of Marine Craft (MCMC’2006). IFAC, Lisbon},
   year={2006},
   organization={Citeseer}
-}
+},
+@conference{whitcomb99,
+  title={{Advances in underwater robot vehicles for deep ocean exploration: Navigation, control, and survey operations}},
+  author={Whitcomb, L. and Yoerger, D. and Singh, H. and Howland, J.},
+  booktitle={Navigation, Control and Survery Operations,” in The Ninth International Symposium on Robotics Research},
+  year={1999},
+  organization={Citeseer}
+},
+%%%%%%%%%%%%%%%%% PARTICULAR REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%
 @conference{drolet00,
-  title={Adaptable sensor fusion using multiple Kalman filters},
+  title={{Adaptable sensor fusion using multiple Kalman filters}},
   author={Drolet, L. and Michaud, F. and C{\^o}t{\'e}, J.},
   booktitle={Intelligent Robots and Systems, 2000.(IROS 2000). Proceedings. 2000 IEEE/RSJ International Conference on},
   volume={2},
@@ -48,7 +70,7 @@
   isbn={0780363485},
   year={2000},
   organization={IEEE}
-}
+},
 @conference{blain03,
   title={{Implementation of a ROV navigation system using acoustic/Doppler sensors and Kalman filtering}},
   author={Blain, M. and Lemieux, S. and Houde, R.},
@@ -58,7 +80,7 @@
   isbn={0933957300},
   year={2003},
   organization={IEEE}
-}
+},
 @conference{diMassa97,
   title={{Terrain-relative navigation for autonomous underwater vehicles}},
   author={Di Massa, D.E. and Stewart Jr, WK},
@@ -68,7 +90,7 @@
   isbn={0780341082},
   year={1997},
   organization={IEEE}
-}
+},
 @conference{eustice05,
   title={{Visually navigating the RMS Titanic with SLAM information filters}},
   author={Eustice, R. and Singh, H. and Leonard, J. and Walter, M. and Ballard, R.},
@@ -76,7 +98,7 @@
   volume={2},
   year={2005},
   organization={Citeseer}
-}
+},
 @conference{gade99,
   title={{An aided navigation post processing filter for detailed seabed mapping UUVs}},
   author={Gade, K. and Jalving, B.},
@@ -85,13 +107,13 @@
   isbn={0780351908},
   year={1999},
   organization={IEEE}
-}
+},
 @article{roman05,
   title={{Self consistent bathymetric mapping from robotic vehicles in the deep ocean}},
   author={Roman, C.N.},
   year={2005},
   publisher={Massachusetts Institute of Technology}
-}
+},
 @conference{yun00,
   title={{An inertial navigation system for small autonomous underwater vehicles}},
   author={Yun, X. and Bachmann, E.R. and Arslan, S.},
@@ -101,5 +123,16 @@
   isbn={0780358864},
   year={2000},
   organization={IEEE}
+},
+@conference{jakuba03,
+  title={{High-resolution multibeam sonar mapping with the autonomous benthic explorer (ABE)}},
+  author={Jakuba, M. and Yoerger, D.},
+  booktitle={Proc. 13th Unmanned Untethered Submersible Technol. Conf},
+  pages={2003}
+},
+@article{julier96,
+  title={{A general method for approximating nonlinear transformations of probability distributions}},
+  author={Julier, S. and Uhlmann, J.K.},
+  journal={Robotics Research Group, Department of Engineering Science, University of Oxford, Oxford, OC1 3PJ United Kingdom, Tech. Rep},
+  year={1996}
 }
-

@@ -9,16 +9,6 @@ One of the main capabilities of the autonomous underwater vehicle is knowing to 
 
 The main topic is localization of an underwater vehicle. Localization essentially deals with the problem of the estimation of the position of the vehicle. A tool to accomplish it is the sensor measurement. Main idea is to establish the matching between the sensor measurements and the map elements. This process is not straightforward since many conditions influence the performance, including the very starting point of the localization: whether we have some previous estimate on the position or not \cite{ribas10}. Localization can be carried through by analysing the pose possibilities and choosing the one that reaches better coherence between the measurements and the map. Such methods are Monte Carlo localization and Markov localization. The other approach, a set of hypotheses for coupling together the sensor measurements and the map features. These hypotheses are ranked depending on number of consistent matches where the one with highest ranking is defining the position. This can be a costly process, therefore a number of methods deals with optimization of it. 
 
- using Kalman filter. Mathematical background is in: \cite{Maybeck79}.
-
-\section{Literature review} \label{sect:lit-rev}
-Mention the PhD thesis \cite{ribas10}.
-
-Localization exploring map or scan matching techniques was presented in \cite{Cox91} and \cite{Lu97}. 
-
-Approach that uses geometrical landmarks in Kalman filters is explained in \cite{Leonard91}. These led to SLAM.
-
-One work from HW is \cite{Ruiz01}.
 
 %%\subsection{Paper}
 %%The manuscript should be in A4 size, and the printed paper should

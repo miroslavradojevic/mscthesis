@@ -1,23 +1,36 @@
 \documentclass[twoside,a4,12p]{report} %,draft,openright]
 
-\usepackage{epsf,graphicx}
-\usepackage{latexsym,amssymb}
-\usepackage{setspace,cite}
-% for margins left, right top bottom
-\usepackage{anysize}
+% packages
+\usepackage{epsf,
+			epstopdf,
+			graphicx, 
+			latexsym,
+			amssymb,
+			anysize, % for margins left, right top bottom
+			setspace,
+			cite,
+			fancyhdr, %does the headers on the pages - keep in
+			amsmath,
+			algorithm,
+			url,
+			hyperref,
+			algorithm,
+			algorithmic
+			}
 \marginsize{4cm}{2.5cm}{4cm}{4cm}
 
 %\usepackage{draft} %draft option - doesn't put full figures in -
-            % useful when editing
-
-%does the headers on the pages - keep in
-\usepackage{fancyhdr}
+                   % useful when editing
 
 %omitting any of these makes the thesis compile without the omitted
 %chapter - good for editing single chapters.
-\includeonly{header,intro,problem-def, state-of-the-art, methodology, results, appendix}
+%\includeonly{header,intro,problem-def, state-of-the-art, methodology, results, appendix}
 
+%%%%% my add-ons %%%%%
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+
 \newpage
 
 %Puts page numbering of preamble in roman and of main body of thesis in
@@ -49,7 +62,7 @@
 \input{problem-def/problem-def.tex}
 \input{state-of-the-art/state-of-the-art.tex}
 \input{sensors/sensors.tex}
-
+\input{kalman/kalman.tex}
 %\input{methodology.tex}
 %\input{results.tex}
 %\input{conclusions.tex}

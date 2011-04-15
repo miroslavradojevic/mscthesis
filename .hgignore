@@ -6,5 +6,10 @@ syntax: glob
 *.toc
 *.lof
 *.lot
+*.bbl
+*.blg
+*.dvi
+*.out
+*.ps
 *~
 

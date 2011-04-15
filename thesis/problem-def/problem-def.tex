@@ -1,4 +1,13 @@
 \chapter{Problem Definition} \label{chap:problem-def}
+
+Robots including underwater robots are designed to help humans by replacing them or helping them in accomplishing certain task. It is essential for successful application of an underwater vehicle that the vehicle can accurately estimate its own position in the environment. First of all, it autonomously makes decisions that are influenced by position information. Second, usability and quality of the data corresponds to the precision of the localization.
+
+With the discovery and the development of Global Positioning System (GPS), the issue of the localization of all robots operating on land or in the air was solved with the considerably cheap and reliable system. However, designers of those machines that operate underwater remain being in quest for the localization system of similar performance that would work in vast and different environment such as water.
+
+Due to the absorbtion of radio frequencies in salt water, GPS signal is not available in sea depths, and radio localization which serves as standard ``above the surface'' cannot be used. Therefore, various methods are developed to establish the localization underwater. New ways of measuring the vehicle position have been used  The aim of the thesis report is to  
+
+The improvement of sensor performance enabled their usage in localization. Different types of sensors are typically used and the role of mathematical algorithm such as Kalman filter or its variations is to combine together sensor measurements from all the different sources and make an optimal estimate of the vehicle state: its position and orientation. 
+
 The aim of the project is to implement and evaluate navigation algorithm for an underwater vehicle. Navigation, as introduced in literature, implies two capabilities \cite{farrell98}:
 \begin{itemize}
 \item localization - accurate determination of the vehicle position and velocity with respect to a known reference point
