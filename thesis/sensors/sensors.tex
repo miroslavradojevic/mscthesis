@@ -1,12 +1,13 @@
-\chapter{Sensors overview} \label{chap:sensors}
+\chapter{Navigation sensors} \label{chap:sensors}
 
-This chapter gives an overview of the sensors used in localization of an underwater vehicle.  Underwater positioning can be based on different methods. Hence, it is possible to distinct localization that uses fixed, ground based reference, and relative positioning based on velocity integration.
+This chapter gives an overview of the sensors used in localization of an underwater vehicle and their characteristics.  Underwater positioning can be based on usage of different types of sensors together. Hence, it is possible to distinct localization that uses fixed, ground based reference, and relative positioning based on velocity integration. Localization is influenced with the development and performance sensor devices. Sensors can be regarded as the tool for managing the localization. Faster they are, more accurate they are, localization has more chances to perform better.
 
 \section{Inertial navigation system}
 Provides position, linear velocities, orientation and angular velocitioes. Accelerations are not used. 
+
 \section{Acoustic system}
-Provides the absolute position, ground based refernce. Principal way of exchanging the information through the environment is sound - therefore acoustic.
-Long baseline(LBL) is used for measuring position with respect to several tethered beacons placed in water. It can be understood as the extension of the GPS underwater. Such system uses acoustic signals to measure the distances. Vehicle uses the acoustic transponder to send the acoustic wave (``pinging''). The wave reaches beacon and reflects back to the vehicle. It consists of transceiver and array arranged collection of beacons: LBL transceiver pings each of the beacons, detects the signal travel time and 
+Provides the absolute position, ground-based reference. Principal way of exchanging the information through the environment is sound - therefore acoustic. Long baseline (LBL) is used for measuring position with respect to several tethered beacons placed in water (Section \S~\ref{sec:acoustic}). It can be understood as the extension of the GPS below the water surface. Such system uses acoustic signals to measure the distances. Vehicle uses the acoustic transponder to send the acoustic wave (``pinging''). The wave reaches beacon and reflects back to the vehicle. It consists of transceiver and array arranged collection of beacons. LBL transceiver pings each of the beacons and detects the signal travel time in order to calculate the distance. 
+
 \section{Bathymetry system}
 Accomplishes depth measurement. It is possible to use acoustic system for this purpose, however, bathymeter using pressure information tends to be more precise and trustable.
 

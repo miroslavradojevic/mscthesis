@@ -15,7 +15,8 @@
 			url,
 			hyperref,
 			algorithm,
-			algorithmic
+			algorithmic,
+			subfigure
 			}
 \marginsize{4cm}{2.5cm}{4cm}{4cm}
 
@@ -60,14 +61,17 @@
 
 \input{intro/intro.tex}
 \input{problem-def/problem-def.tex}
-\input{state-of-the-art/state-of-the-art.tex}
-\input{sensors/sensors.tex}
 \input{kalman/kalman.tex}
-%\input{methodology.tex}
+\input{sensors/sensors.tex}
+\input{auv-overview/auv-overview.tex}
+%\input{state-of-the-art/state-of-the-art.tex}
+
+\input{methodology/methodology.tex}
 %\input{results.tex}
 %\input{conclusions.tex}
-\appendix
-\input{appendix.tex}
+
+%\appendix
+%\input{appendix.tex}
 
 %   this is for BibTeX.  remove if you plan to write the references in the document
 \bibliographystyle{plain}
