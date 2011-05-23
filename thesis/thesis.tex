@@ -3,12 +3,15 @@
 % packages
 \usepackage{epsf,
 			epstopdf,
-			graphicx, 
+			graphicx,
+			xcolor, 
 			latexsym,
 			amssymb,
+			amsmath,
 			anysize, % for margins left, right top bottom
 			setspace,
 			cite,
+			moreverb,
 			fancyhdr, %does the headers on the pages - keep in
 			amsmath,
 			algorithm,
@@ -16,7 +19,18 @@
 			hyperref,
 			algorithm,
 			algorithmic,
-			subfigure
+			subfigure,
+			algorithm,
+			booktabs,
+			multirow, % table
+			wrapfig,
+			tabularx,  % table tool
+			colortbl,  % color in table
+			multirow,  % table package
+			rotating,  % 
+			empheq,    % 
+			bbding,    % for table details
+			pifont     % for table details
 			}
 \marginsize{4cm}{2.5cm}{4cm}{4cm}
 
@@ -29,9 +43,10 @@
 
 %%%%% my add-ons %%%%%
 \newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\T}{\texttt}
 %%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
+\input{shortcuts.tex}
 \newpage
 
 %Puts page numbering of preamble in roman and of main body of thesis in
@@ -45,7 +60,6 @@
 %DEFINES TITLE PAGE, and contains abstract, acknowledgements, etc.
 
 \include{header}
-
 \newpage
 
 %sets up headers for lefthand and righthand pages. To alter, edit
@@ -59,15 +73,18 @@
 %\doublespacing
 \onehalfspacing
 
-\input{intro/intro.tex}
-\input{problem-def/problem-def.tex}
-\input{kalman/kalman.tex}
-\input{sensors/sensors.tex}
-\input{auv-overview/auv-overview.tex}
-%\input{state-of-the-art/state-of-the-art.tex}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
 
-\input{methodology/methodology.tex}
-%\input{results.tex}
+%\input{intro/intro.tex}
+%\input{problem-def/problem-def.tex}
+%\input{auv-overview/auv-overview.tex}
+%\input{kalman/kalman.tex}
+%\input{sensors/sensors.tex}
+%%% this section is replaced %%%\input{state-of-the-art/state-of-the-art.tex}
+%\input{methodology/methodology.tex}
+\input{results/results.tex}
 %\input{conclusions.tex}
 
 %\appendix
@@ -76,6 +93,7 @@
 %   this is for BibTeX.  remove if you plan to write the references in the document
 \bibliographystyle{plain}
 \bibliography{refs}
+\nocite{*}
 
 
 %adds the bibliography to the table of contents

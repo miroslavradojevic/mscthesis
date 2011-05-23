@@ -12,4 +12,7 @@ syntax: glob
 *.out
 *.ps
 *~
-
+*.nav
+*.vrb
+*.snm
+*.aux

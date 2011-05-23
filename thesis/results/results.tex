@@ -1,1 +1,37 @@
 \chapter{Results} \label{chap:results}
+It is useful to mention that there is no exact ground truth for underwater robot localization available. GPS signal could serve as an absolute position reference, in case it is available, either directly or in form of LBL. Experimental results have been obtained for different missions. Good news, however, is that the absolute depth measurement is quite accurate and frequent, making AUV localisation a 2D task.  
+\section{Selecting a heading measurement with good performance}
+For a high-end underwater vehicle such as Nessie, supplied with FOG-based INS, DVL and LBL, main source of navigation error is influenced by transformation of vehicle-referenced velocities to world-referenced velocities \cite{bahr08}, particularly due to yaw measurement errors. Yaw can be measured using several devices, each having different accuracy and performance. Simulation with data from previous missions was carried out to see which device gives the best performance for a given underwater vehicle. 
+
+Heading calculated by integrating FOG's yaw rate - tends to be accurate and fast, with respect to previous yaw value. However, being a relative measurement it is sensible on initial absolute heading measurement. In case initial yaw is imprecise, a constant bias exists in yaw measurement (Figure ~\ref{fig:auv-sim-straight1}). This is expected scenario since the sensor responsible for measuring an initial heading is magnetic compass. 
+\input{simulations/simulations.tex}
+\section{Real scenario}
+In search for heading measurement less prone to initial error, real scenarios were accomplished using compass for heading measurement. Compass is more sensitive to magnetic disturbances (Figure ???), slower that FOG but gives an absolute measure - therefore, does not rely on previous measurements.
+Number of real tests was made, one of them showing the performance of yaw tracking (Figure ???).  
+\section{Compass and FOG trial}
+%%%%%%Conclusion: shape of the covariance lines is tuned with model noise (accelerations). Their width is influenced with measurement uncertainty.
+%%%%%%\section{Influence of the model parameters} 
+%%%%%%\section{With GPS help}
+%Mention smoothness of the simulation obtained curve.
+%Combination of all relevant sensors gives in a Kalman filter state estimate results in more precise position and heading compared with instant (flat) usage of position and orientation measurements.  
+%Standard deviation of position and heading estimate set as parameters are defining how certain we are about particular measurement.\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Implementation aspect}
+%\subsection{Software - related implementation issues}
+%\subsection{Asynchronous vs. Synchronous}
+%\subsection{Asynchronous data arrival}
+%Measurement model will fit the observation. Observation is a collection of measurements that came from different sensors within an update ineterval.
+%\subsection{Sensor selection}
+%About yaw measurement - which sensor was chosen and why. Compass vs FOG.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%As introduced in previous chapters, main purpose of the thesis is implementation of a navigation system that uses measurements from different sensors, fuses the sensory data together in order to make quality estimate of the position and the orientation of the underwater robot. Existing data from the real missions was used to carry out initial simulations. 
+%
+%Design and performance test.
+%\section{Dead reckoning}
+%One of the issues when assessing the quality of the navigation is a fact that there is no ground truth. No exact and totally precise localization. However, some Drift can  
+%\subsection{EKF parameters}
+%\section{Sensor fusion benefits}
+%No sudden jumps compared with the case when there is dead - reckoning.   
+%\subsection{Using FOG for navigation improvement}
+%How big is the improvement with respect to the distance travelled?
+%\subsection{DVL for yaw?} 
