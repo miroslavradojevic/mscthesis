@@ -1,4 +1,4 @@
-function [sigmaVec, Wm, Wc] = unscentedTransform(x_mean, P_x)
+function [sigmaVec, Wm, Wc] = unscentedTransform(x_mean, P_x, lambda)
 % function presumes that there is a random variable mean and covariance
 % at the input. it calculates sample points and their weights before 
 % undergoing non-linear transform
@@ -22,10 +22,10 @@ L = size(x_mean, 1);
 alpha = 1e-3; % determines the spread of sigma points around mean
 k = 0; % secondary scaling parameter
 beta = 2;% incorporate prior knowledge  
-lambda = alpha^2 * (L+k) - L;
-lambda = -0.5; %1e-3;
+%%%lambda = alpha^2 * (L+k) - L;
+%lambda = -0.2; %1e-3;
 sigmaVec(:,1) = x_mean;
-Wm(1)   = lambda/(L+lambda)
+Wm(1)   = lambda/(L+lambda);
 Wc(1)   = lambda/(L+lambda);%+(1-alpha^2+beta)
 
 TEMP = sqrtm((L+lambda)*P_x); % matrix square root 

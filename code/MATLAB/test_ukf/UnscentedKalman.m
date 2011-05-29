@@ -1,10 +1,10 @@
-function [XA,PA]=UnscentedKalman(XA, PA, z, T, conf)
+function [XA,PA]=UnscentedKalman(XA, PA, z, T, conf, lambda)
 %global PARAM DATA whichDevice whichValues
 Pv = PA(12:16, 12:16);
 Pn = PA(17:27, 17:27);
 %calculate sigma points
 L = size(XA, 1); % state length
-[sigmaVec, Wm, Wc] = unscentedTransform(XA, PA);
+[sigmaVec, Wm, Wc] = unscentedTransform(XA, PA, lambda);
 chi_x = sigmaVec(1:11,:);
 chi_v = sigmaVec(12:16,:);
 chi_n = sigmaVec(17:27,:);

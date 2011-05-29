@@ -1,6 +1,6 @@
 close all; clear all; clc;
 
-EXPORT_IMAGES = 0;
+EXPORT_IMAGES = 1;
 
 InputMessages   =  importdata('logFile.input',  ',');
 Observations    =  csvread('logFile.obser');
@@ -35,6 +35,8 @@ for i = 1 : size(Observations, 1),
     end
 end
 %%%%%% UKF FILTERING OFFLINE %%%%%%
+lambda = -0.7;
+
 for i = 1 : size(Observations, 1),
         if(i==1),
             X(1:11) = InputMessages(1, 2:12);
@@ -58,7 +60,7 @@ for i = 1 : size(Observations, 1),
         disp('nothing measured... empty observation...');
         % should just do the prediction
         z = NaN; conf = [0];
-        [XA, PA] = UnscentedKalman(XA, PA, z, At, conf);
+        [XA, PA] = UnscentedKalman(XA, PA, z, At, conf, lambda);
     else
         % there was a measurement
         MeasurementVec = Observations(i,2:MeasurementLen+1);
@@ -69,7 +71,7 @@ for i = 1 : size(Observations, 1),
         z = MeasurementVec;
         conf = MeasurementStates;
         %At = InputMessages(i,1);
-        [XA, PA] = UnscentedKalman(XA, PA, z, At, conf);
+        [XA, PA] = UnscentedKalman(XA, PA, z, At, conf, lambda);
     end
     X_ukf(i, :) = XA(1:11)'; 
     P_ukf(i,:) = diag(PA)';
@@ -96,10 +98,11 @@ end
 
 figure;
 plot(OldNav(:,2), OldNav(:,1), 'r.'); hold on; grid on; axis equal;
-%plot(Obs(:,2), Obs(:,1), 'bo');
-plot(OutputMessages(:,2), OutputMessages(:,1), 'g');
-plot(X_ukf(:,2), X_ukf(:,1), 'b');
+plot(OutputMessages(:,2), OutputMessages(:,1), 'g', 'LineWidth', 2);
+plot(X_ukf(:,2), X_ukf(:,1), 'b', 'LineWidth', 2);
 legend('dead reckoning', 'ekf filtered', 'ukf filtered');
+legend('Location', 'NorthWest');
+xlabel('east [m]'); ylabel('north [m]');
 
 if(EXPORT_IMAGES),
             set(gcf, 'Color', 'none');  

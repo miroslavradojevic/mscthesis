@@ -1,37 +1,92 @@
 \chapter{Results} \label{chap:results}
-It is useful to mention that there is no exact ground truth for underwater robot localization available. GPS signal could serve as an absolute position reference, in case it is available, either directly or in form of LBL. Experimental results have been obtained for different missions. Good news, however, is that the absolute depth measurement is quite accurate and frequent, making AUV localisation a 2D task.  
-\section{Selecting a heading measurement with good performance}
-For a high-end underwater vehicle such as Nessie, supplied with FOG-based INS, DVL and LBL, main source of navigation error is influenced by transformation of vehicle-referenced velocities to world-referenced velocities \cite{bahr08}, particularly due to yaw measurement errors. Yaw can be measured using several devices, each having different accuracy and performance. Simulation with data from previous missions was carried out to see which device gives the best performance for a given underwater vehicle. 
+Main purpose of the thesis is implementation of a navigation system that uses measurements from different sensors, fuses the sensory data together in order to make presumably better quality estimate of the position and the orientation of the underwater robot. Existing data from the real missions was used to carry out initial simulations. It is useful to mention that there is no exact ground truth for underwater robot localization available. GPS signal, if available, could serve as an absolute position reference: either directly or in form of LBL. Experimental results have been obtained for different missions. Good news, however, is that the absolute depth measurement is quite accurate and frequent, making AUV localisation a 2D task.  
 
-Heading calculated by integrating FOG's yaw rate - tends to be accurate and fast, with respect to previous yaw value. However, being a relative measurement it is sensible on initial absolute heading measurement. In case initial yaw is imprecise, a constant bias exists in yaw measurement (Figure ~\ref{fig:auv-sim-straight1}). This is expected scenario since the sensor responsible for measuring an initial heading is magnetic compass. 
 \input{simulations/simulations.tex}
+
 \section{Real scenario}
-In search for heading measurement less prone to initial error, real scenarios were accomplished using compass for heading measurement. Compass is more sensitive to magnetic disturbances (Figure ???), slower that FOG but gives an absolute measure - therefore, does not rely on previous measurements.
-Number of real tests was made, one of them showing the performance of yaw tracking (Figure ???).  
-\section{Compass and FOG trial}
-%%%%%%Conclusion: shape of the covariance lines is tuned with model noise (accelerations). Their width is influenced with measurement uncertainty.
-%%%%%%\section{Influence of the model parameters} 
-%%%%%%\section{With GPS help}
-%Mention smoothness of the simulation obtained curve.
+\T{Sensor fusion for heading: } being in search for heading measurement less prone to initial error, and guided by simulation results, real scenarios were accomplished using magnetic compass for heading measurement. Compass is more sensitive to magnetic disturbances (Figure ~\ref{fig:magnetic-disturb}), slower than FOG but, importantly, gives an absolute measure - therefore, does not rely on previous measurements. An experiment was made by just manually rotating the robot horizontally while keeping the same position - changing its heading. Figures ~\ref{fig:lostFog} and ~\ref{fig:lostCompass} show the performance of yaw filtering using EKF and the example of sensor fusion of compass and FOG. Namely, compass (Figure ~\ref{fig:lostCompass}) or FOG (Figure ~\ref{fig:lostFog}) were disabled at one point during the experiment. When one of them stops working, the other one tries to compensate that and still filters the heading/yaw rate variation.  
+\begin{figure}%[htb]
+  \centering
+    \subfigure[Compass disabled.] {\label{fig:lostCompass}
+	\includegraphics[width=0.45\linewidth]{results/fig/lostCompass.eps}}
+    \subfigure[FOG disabled.] {\label{fig:lostFog}
+    \includegraphics[width=0.45\linewidth]{results/fig/lostFOG.eps}} \\   
+\end{figure}
+
+\T{Trajectory filtering: } Spiral trajectory and surfacing action was taken with Nessie starting from the depth of around 12m. EKF filtering results are shown in Figure ~\ref{fig:spiral} together with LBL position updates and dead reckoning starting from each position. Similarly as with previous plots, dead reckoning was shown together with LBL position update. Filtered trajectory does not experience severe jumps, and the curve seems to be smoother and less prone to drifting. Standard deviation of north and east measurement parameter (Table ~\ref{tab:ekf-params}) was tested with different values, causing more or less confidence in LBL measurement hence shaping the filtered localisation curve. Presented LBL measurements are exhibiting quite diverse range of values.
+Causes of position correction errors are numerous: from ``multipathing'' outliers (Figure ~\ref{fig:multipathing}) till imprecision inferred from the nature of volatile acoustic and GPS information. ``Multipathing'' causes outliers in position information as a result of false reflections for instance. Acoustic and GPS imprecision can be treated as Gaussian random variable. 
+\begin{wrapfigure}{r}{0.55\textwidth}
+\vspace{-10pt}
+  \centering
+    \includegraphics[width=0.45\textwidth]{results/fig/multipathing.eps}
+  \caption{Multipathing can cause outliers in LBL position measurement. Due to reflection, several distances are detected, some  being false measurements.}
+%\vspace{-10pt} 
+\label{fig:multipathing}
+\end{wrapfigure}
+It is likely that some of the LBL position updates deviate from the trajectory. Hence, a mechanism for rejecting the outliers was investigated. EKF was tested on raw LBL position updates. Intention is to manage the filtration of the ``outliers'' by using properly tuned EKF. Motivation to explore such possibility comes from two scenarios encountered in earlier missions. In such missions position wad dead reckoned and LBL was used to assign each time a new value of north and east coordinate. LBL outliers were ruled out using median filter applied on last eleven position coordinates once the latest LBL exceeded the set threshold in position change. The missions showcased situations when: 
+\begin{itemize}
+\item LBL rejection is carried out despite being ``false alarm'' - Figure ~\ref{fig:straight-median-ekf},
+\item rejection of the LBL is the right choice - Figure ~\ref{fig:spiral-median-ekf}
+\end{itemize}
+It is important to say that LBL position filtering was implemented in form of median filter. EKF was updated with raw LBL data instead of median filter. Idea is that rejecting an LBL measurement can turn out to be right (Figure ~\ref{fig:spiral-median-ekf}) as well as a wrong decision (Figure ~\ref{fig:straight-median-ekf}). That is why Kalman was suggested as an alternative. Examples of EKF's performance  are shown in both Figures ~\ref{fig:straight-median-ekf} and ~\ref{fig:spiral-median-ekf}. Solution is not as categoric as median filter. Moreover, it is more robust. By giving certain trust in LBL observation it always takes it into account. Median filter, on the other hand, can be too selective in being right or wrong. If it turns out that LBL positions do follow each other, EKF continues slowly following that direction. If the outliers are isolated, EKF successfully rules them out (Figure ~\ref{fig:spiral-median-ekf}). 
+\begin{figure}%[htb]
+  \centering
+    \subfigure[Straight trajectory: LBL outliers erroneously rejected (red). EKF tends to recover navigation (green).] {\label{fig:straight-median-ekf}
+	\includegraphics[width=0.45\linewidth]{results/fig/straight-median-ekf.eps}}
+    %\subfigure[Straight trajectory: LBL outliers filtered with EKF.] {\label{fig:straight-ekf}
+    %\includegraphics[width=0.45\linewidth]{results/fig/straight-ekf.eps}} \\  
+    \subfigure[Spiral trajectory: LBL outliers rejected using median. EKF filtering results in the position disturbance which recovers soon after.] {\label{fig:spiral-median-ekf}
+    \includegraphics[width=0.5\linewidth]{results/fig/spiral-median-ekf.eps}} 
+    %\subfigure[Spiral trajectory: LBL outliers filtered with EKF.] {\label{fig:spiral-ekf}
+    %\includegraphics[width=0.45\linewidth]{results/fig/spiral-ekf.eps}}     
+\end{figure}
+\T{Square trajectories: } square trajectories were tested in low depths of a lake, with the GPS signal available to be used as a position reference and ground truth indication (Figures ~\ref{fig:no-gps}, ~\ref{fig:with-gps}). Dead reckoning navigation was used as a reference when controlling the vehicle movement during the experiment. This fact can cause slight confusion in analysis of the trajectory graphs since all the dynamics and forces were applied with respect to dead reckoning navigation which is an estimated value, not the real existing one. It is a slightly inverse logic of testing, nevertheless further tests are yet to be accomplished. Emphasis of this experiment was to show that EKF can work successfully and analyse the main characteristics of the navigation design. Hence it is likely that the GPS emulated square-shaped trajectories float vary in time. GPS signal available from the antenna located on surface is serving as a measure of absolute position within the lake - giving an idea about the actual vehicle position while it tries to moves within the boundaries of estimated dead reckoning position. 
+
+Main issue when performing the square trajectory tests was significant imprecision of GPS signal. Many reasons can possibly influence the imprecision: from the weather conditions till surrounding objects. Drifting can reach up to several meters. Basically anything that can affect the satellite visibility and the quality of the signal. Finally, the trajectory of the experiment itself is quite short ($ \approx 10 m $) to be seriously and accurately covered with GPS position update. Figure ~\ref{fig:gps} shows the tested trajectory and depicts the encountered amount of GPS imprecision.
+\begin{figure}%[htb]
+  \centering
+    \subfigure[Coordinates of the tested square trajectory pasted on the lake map.] {\label{fig:gps-map}
+	\includegraphics[width=0.48\linewidth]{results/fig/square-trajectory.eps}}
+    \subfigure[GPS signal as it appears originally.] {\label{fig:gps-signal}
+	\includegraphics[width=0.48\linewidth]{results/fig/gps-signal.eps}}
+\end{figure}
+EKF localisation was tested. Initially, only motion (inertial) sensors were used within the observations. Hence all the available linear and angular velocity sensors. Absolute position (raw GPS signal in this constellation) was not included in observations. EKF periodically updates (synchronous mode, \S~\ref{chap:methodology}), with the rate of 10 Hz. The aim was to measure the performance and the amount of drifting that occurs since the robot is intended to repeatedly attain square-like paths and return to the starting position in ideal scenario. It is useful to mention that proper parameter tuning can significantly change filtering performance. By giving more or less trust in particular measurement, or particular model behaviour, the role of certain parameters of dynamics (velocities, angular velocities) can be emphasized if necessary. Figure ~\ref{fig:no-gps} shows the performance of EKF without GPS position correction after one trajectory cycle, and the original path that was followed, recorded using GPS. Initial position was taken from the first GPS measurement and the first measurement can indeed be away from the real position due to GPS imprecision. Note that the control of the vehicle trajectory refers to dead-reckoning calculated north-east values, not some physical beacons with known position. At the time of reporting the experiments, testing were not fully accomplished with all the planned scenario variations. Localisation expectedly tends to perform with a significant drift without the absolute position update (Figure ~\ref{fig:square-1-noGps}). After the second square-shaped cycle (Figure ~\ref{fig:square-2-noGps}), EKF shows that it roughly tracks the shape of the trajectory, smooths it by filtering out the measurement outliers. Vehicle has returned approximately to the same position after each cycle. Drift gained when following one of the sides of the rectangular path was compensated with the same amount of drift but of the opposite sign that was active when taking the return direction. Enormous amount of drift is present since the information on absolute position is not considered. The first available GPS coordinate fixes the starting position and part of the initial position error is caused by being incapable of setting the initial position accurately.       
+\begin{figure}%[htb]
+  \centering
+    \subfigure[N/E localisation.] {\label{fig:spiral2d}
+	\includegraphics[width=0.48\linewidth]{results/fig/spiral2d.eps}}
+    \subfigure[Depth.] {\label{fig:spiral-depth}
+    \includegraphics[width=0.48\linewidth]{results/fig/spiral-depth.eps}}
+    % \\  
+    %\subfigure[Path (temporary plot).] {\label{fig:spiral3d}
+    %\includegraphics[width=0.8\linewidth]{results/fig/spiral3d.eps}} 
+\end{figure}
+Finally, GPS measurements were appended to EKF observations. Localisation results were shown in Figure ~\ref{fig:with-gps} for two different level of confidence (variances) in position measurement. Naturally, giving extremely high confidence does not seem to be the best choice, however, some empirically deduced value in range of decimetres for this particular test significantly corrects dead reckoning drift. Furthermore, EKF tends to filter the GPS measured north east coordinates hence corrects the GPS imprecisions stated at the beginning. At this point it is evident why EKF is a great tool. Filter tries to satisfy the set uncertainty boundaries and fuse all the available information trying to make the most out of it combined together in one mathematical system. Moreover, fusing such imprecise and sketchy position data from GPS, still improves the localisation. Obtained trajectory tend to go towards what can be treated as ground truth. From something that looked like a noisy collection of position observations at the beginning (Figure ~\ref{fig:gps-signal}), EKF filtering together with sensor fusion enabled  having generally better performance in navigation.     
+\begin{figure}%[htb]
+  \centering
+    \subfigure[EKF localisation after one cycle.] {\label{fig:square-1-noGps}
+	\includegraphics[width=0.48\linewidth]{results/fig/square1NoGps.eps}}
+    \subfigure[EKF localisation after two cycles.] {\label{fig:square-2-noGps}
+	\includegraphics[width=0.48\linewidth]{results/fig/square2NoGps.eps}}\\
+    \subfigure[Linear and angular velocities during square-shaped trajectory.] {\label{fig:square-dynamics}
+    \includegraphics[width=0.6\linewidth]{results/fig/dynamics.eps}}
+    \caption{EKF localisation using only inertial measurements as observation.}
+    \label{fig:no-gps}
+\end{figure}
+\begin{figure}%[htb]
+  \centering
+    \subfigure[Setting standard deviation of 1 m in uncertainty position observation (SDnorth = SDeast = 1.0 m).] {\label{fig:square-withGps-1}
+	\includegraphics[width=0.48\linewidth]{results/fig/squareWithGps-10.eps}}
+    \subfigure[EKF localisation after tuning the position uncertainty (SDnorth = SDeast = 0.5 m).] {\label{fig:square-withGps-2}
+	\includegraphics[width=0.48\linewidth]{results/fig/squareWithGps-05.eps}}
+    %\\
+    %\subfigure[Linear and angular velocities during square-shaped trajectory.] {\label{fig:square-dynamics}
+    %\includegraphics[width=0.45\linewidth]{results/fig/dynamics.eps}}
+    \caption{EKF localisation aided with GPS position updates weighted by setting appropriate parameters.}
+    \label{fig:with-gps}
+\end{figure}
 %Combination of all relevant sensors gives in a Kalman filter state estimate results in more precise position and heading compared with instant (flat) usage of position and orientation measurements.  
-%Standard deviation of position and heading estimate set as parameters are defining how certain we are about particular measurement.\\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{Implementation aspect}
-%\subsection{Software - related implementation issues}
-%\subsection{Asynchronous vs. Synchronous}
-%\subsection{Asynchronous data arrival}
-%Measurement model will fit the observation. Observation is a collection of measurements that came from different sensors within an update ineterval.
 %\subsection{Sensor selection}
-%About yaw measurement - which sensor was chosen and why. Compass vs FOG.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%As introduced in previous chapters, main purpose of the thesis is implementation of a navigation system that uses measurements from different sensors, fuses the sensory data together in order to make quality estimate of the position and the orientation of the underwater robot. Existing data from the real missions was used to carry out initial simulations. 
-%
 %Design and performance test.
-%\section{Dead reckoning}
-%One of the issues when assessing the quality of the navigation is a fact that there is no ground truth. No exact and totally precise localization. However, some Drift can  
-%\subsection{EKF parameters}
-%\section{Sensor fusion benefits}
-%No sudden jumps compared with the case when there is dead - reckoning.   
 %\subsection{Using FOG for navigation improvement}
 %How big is the improvement with respect to the distance travelled?
-%\subsection{DVL for yaw?} 
