@@ -12,19 +12,23 @@
 
 \vspace*{2cm}
 \begin{center}
-{\Large\bf MSc. Thesis DRAFT - Underwater vehicle localisation using Extended Kalman Filter\\} \vspace{2cm} {\large
+{\Large\bf Underwater vehicle localisation using Extended Kalman Filter\\} \vspace{2cm} {\large
 Author: Miroslav Radojevi\'c \\
 Supervisor: Yvan Petillot    \\
-\vspace{2cm}
+\vspace{3cm}
 Ocean Systems Lab \\
-Heriot-Watt University, Edinburgh (UK) \\
-Universitat de Girona \;
+Heriot-Watt University, Edinburgh  \\
+\vspace{0.5cm}
+Escola Polit\`{e}cnica Superior \\
+Universitat de Girona \\ 
+\vspace{0.5cm}
+Centre Universitaire Condorcet \\
 Universit\'{e} de Bourgogne  
 }
 
 \end{center}
 
-\vspace{7cm}
+\vspace{3.5cm}
 \begin{center}
 {\large A Thesis Submitted for the Degree of \\MSc Erasmus Mundus
 in Vision and Robotics (VIBOT) \\\vspace{0.3cm} $\cdot$ 2011
@@ -35,12 +39,17 @@ $\cdot$}
 
 %ABSTRACT
 \begin{abstract}
-In order to accomplish various missions, autonomous underwater vehicles need to be capable of estimating their position within the environment. This is a prerequisite of a successful mission since further tasks that need to be achieved strongly rely on navigation information as a source of valuable information.
+In order to accomplish various missions, autonomous underwater vehicles need to be capable of estimating their position within the environment. This is a prerequisite of a successful mission since further tasks that need to be achieved strongly rely on navigation information as a source of valuable information. Much has been said about navigation underwater, yet the research has not reached the level of having as equally precise solution for navigation as the one available above the water surface.  
 
-This thesis is a study on application of an algorithm that would accomplish localization of an underwater vehicle using measurements from number of sensors mounted on it. Well known Extended Kalman Filter algorithm approach was initially suggested as a solution for self-localisation using sensor fusion. The work consists of introductory investigation of the topic, theoretical background, overview of the robot localisation capabilities. Introduction summarizes possible methods and obstacles arising from the nature of the underwater environment and sensor features. Second part goes deeper into the matter explaining practical solution for navigation and the details of the implementation together with the issues that needed to be solved. Eventually, an analysis of the results is offered. Preliminary computer simulations and, eventually, the authentic results recorded from the real missions. 
+This thesis is a study on application of an algorithm that would accomplish the localisation of the Ocean Systems Lab's Nessie underwater vehicle using measurements from a number of sensors mounted on it. Well known Extended Kalman Filter (EKF) algorithm approach was suggested as a solution for robot self-localisation. Chosen method uses measurements from the set of sensors installed on the vehicle. Standard Kalman Filtering routine involves two stages: prediction and correction. Prediction model is derived from the mathematical model of the vehicle dynamics. Based on the laws of kinematics, prediction model calculates the next vehicle dynamic state. Five degrees of freedom (d.o.f.) \textit{constant-speed} model for motion of the rigid body was proposed for this purpose. Measurements from different sensors are fused together to make the observations. Observations are responsible for the correction stage. In other words, observations have been combined together with the process model in order to make a quality estimate of the current location of the robot within the environment. 
 
-Emphasis is on engineering the solution, improving the navigation and finding a way to overcome known deficiencies, mostly due to nonlinearities and volatile heading measurement. Thesis is intended to report pros and cons of a practical piece of work where a scientific concept was adopted to solve a real task. 
-\vspace*{5cm}
+Prediction model applies the laws of physics in order to make a suitable role model of robot movement. Inspiration for the solution comes from previous works on EKF-based localisation. Practical application of the EKF implies management of the observations in terms of time and sensor type. Additional practical issue that was addressed in the thesis is the choice of heading sensor and quality of obtained heading as an important ingredient of the navigation. Implementation of Unscented Kalman Filter (UKF) was investigated as potential improvement in working with nonlinearities. Finally, the absolute position observations tend to be quite noisy, nevertheless very important navigation measurements. EKF was demonstrated as a tool for sensor fusion and simultaneous filtering of the position measurements.     
+
+In addition, the work gives a summary of the underwater localisation methods and capabilities. Theoretical background on nonlinear filtering was investigated in order to justify the reasons for choosing EKF. Finally, experiments with recorded sensor data and some real missions have been carried out. Their results have been presented as a part of navigation performance test and analysis.% of the characteristics of the localisation. 
+%Introduction summarizes possible methods and obstacles arising from the nature of the underwater environment and sensor features.%Second part goes deeper into the matter explaining practical solution for navigation and the details of the implementation together with the issues that needed to be solved. Eventually, an analysis of the results is offered. Preliminary computer simulations and, eventually, the authentic results recorded from the real missions. 
+%together with the authentic real mission results
+The emphasis is on the engineering of the solution, improving the navigation and finding the way to overcome known deficiencies, mostly due to nonlinearities, volatile heading measurement and measurement imprecisions. Thesis is intended to report pros and cons of a practical piece of work, implemented in C++ within the Robot Operating System (ROS) framework and Nessie software and hardware platform - where a scientific concept was adopted to solve the real task. 
+\vspace*{16cm}
 
 
 

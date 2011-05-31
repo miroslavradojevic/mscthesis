@@ -1,9 +1,9 @@
 function testAngleWrap
 close all; clear all; clc;
 EXPORT_FIGURES = 1;
-Observations   = csvread('logFile.obser');
-InputMessages  =  importdata('logFile.input',  ',');
-OutputMessages  = importdata('logFile.output', ',');
+Observations    =  csvread('logFile.obser');
+InputMessages   =  importdata('logFile.input',  ',');
+OutputMessages  =  importdata('logFile.output', ',');
 % //indexing constants - state vector
 % #define NORTH_INDEX       0
 % #define EAST_INDEX        1
@@ -37,46 +37,61 @@ ANGLE1  = Obs(:,8)*180/pi;
 ANGLE2  = OutputMessages(:,8)*180/pi;
 %%%%%% YAW-YAW RATE TEST %%%%%%%%
 figure;
-plot(time, ANGLE1, 'k.');  grid on; ylabel('angle 1 [deg]');
+subplot(211);
+plot(time, ANGLE1, 'k.');  grid on; hold on;
+plot(time, ANGLE2, 'b.'); %grid on; 
+plot(time, ANGLE1-ANGLE2, 'cx');
+legend('ang_1', 'ang_2', 'ang_1-ang_2');
+ylabel('angle [deg]');
+subplot(212);
+plot(time, angleWrap360(ANGLE1-ANGLE2), 'r*');
+grid on; hold on;
+plot(time, angleWrap180(ANGLE1-ANGLE2), 'g', 'LineWidth',4);
+legend('-\pi,+\pi wrap', '0,2\pi wrap');
+ylabel('angle [deg]');
+%subplot(313);
+
+
+
 if (EXPORT_FIGURES),
     set(gcf, 'Color', 'none');  
     export_fig angle1.eps -eps -a1;
 end
-figure;
-plot(time, ANGLE2, 'b.'); grid on; ylabel('angle 2 [deg]');
-if (EXPORT_FIGURES),
-    set(gcf, 'Color', 'none');  
-    export_fig angle2.eps -eps -a1;
-end
-figure;
-plot(time, ANGLE1-ANGLE2, 'g.'); grid on; ylabel('(angle 1 - angle 2) [deg]');
-if (EXPORT_FIGURES),
-    set(gcf, 'Color', 'none');  
-    export_fig angle1-2.eps -eps -a1;
-end
-figure;
-plot(time, angleWrap180(ANGLE1-ANGLE2), 'r.'); grid on; ylabel('angle wrap180(angle 1 - angle 2) [deg]');
-if (EXPORT_FIGURES),
-    set(gcf, 'Color', 'none');  
-    export_fig wrap180angle1-2.eps -eps -a1;
-end
-figure;
-plot(time, angleWrap360(ANGLE1-ANGLE2), 'g.'); grid on; ylabel('angle wrap360(angle 1 - angle 2) [deg]');
-if (EXPORT_FIGURES),
-    set(gcf, 'Color', 'none');  
-    export_fig wrap360angle1-2.eps -eps -a1;
-end
-figure;
-plot(time, angleWrap360(ANGLE1-ANGLE2), 'go'); grid on; ylabel('angle wrap360(angle 1 - angle 2) [deg]');
-hold on;
-plot(time, angleWrap180(ANGLE1-ANGLE2), 'r.');
-legend('0,2\pi wrap', '-\pi,+\pi wrap');
-if (EXPORT_FIGURES),
-    set(gcf, 'Color', 'none');  
-    export_fig wrapangle1-2.eps -eps -a1;
-end
-disp('end...');
-close all;
+% % % % figure;
+% % % % 
+% % % % if (EXPORT_FIGURES),
+% % % %     set(gcf, 'Color', 'none');  
+% % % %     export_fig angle2.eps -eps -a1;
+% % % % end
+% % % % figure;
+% % % % plot(time, ANGLE1-ANGLE2, 'g.'); grid on; ylabel('(angle 1 - angle 2) [deg]');
+% % % % if (EXPORT_FIGURES),
+% % % %     set(gcf, 'Color', 'none');  
+% % % %     export_fig angle1-2.eps -eps -a1;
+% % % % end
+% % % % figure;
+% % % % plot(time, angleWrap180(ANGLE1-ANGLE2), 'r.'); grid on; ylabel('angle wrap180(angle 1 - angle 2) [deg]');
+% % % % if (EXPORT_FIGURES),
+% % % %     set(gcf, 'Color', 'none');  
+% % % %     export_fig wrap180angle1-2.eps -eps -a1;
+% % % % end
+% % % % figure;
+% % % % plot(time, angleWrap360(ANGLE1-ANGLE2), 'g.'); grid on; ylabel('angle wrap360(angle 1 - angle 2) [deg]');
+% % % % if (EXPORT_FIGURES),
+% % % %     set(gcf, 'Color', 'none');  
+% % % %     export_fig wrap360angle1-2.eps -eps -a1;
+% % % % end
+% % % % figure;
+% % % % plot(time, angleWrap360(ANGLE1-ANGLE2), 'go'); grid on; ylabel('angle wrap360(angle 1 - angle 2) [deg]');
+% % % % hold on;
+% % % % plot(time, angleWrap180(ANGLE1-ANGLE2), 'r.');
+% % % % legend('0,2\pi wrap', '-\pi,+\pi wrap');
+% % % % if (EXPORT_FIGURES),
+% % % %     set(gcf, 'Color', 'none');  
+% % % %     export_fig wrapangle1-2.eps -eps -a1;
+% % % % end
+% % % % disp('end...');
+% % % % close all;
 end
 function ang2 = angleWrap360(ang1)
     ang2 = ang1;

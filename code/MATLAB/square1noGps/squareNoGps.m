@@ -39,7 +39,7 @@ time = cumsum(InputMessages(:,1));
 LENGTH = floor(0.22 * size(OldNav,1));
 GPSnav = OldNav(:,12:13);
 INDEXES_o = find(abs(OldNav(1:LENGTH,5))<0.0001);
-INDEXES_x = find(abs(OldNav(1:LENGTH,5))>0.7);
+INDEXES_x = find(abs(OldNav(1:LENGTH,5))>0.1);
 INDEXES = [];
 %INDEXES = [INDEXES; INDEXES_o];
 INDEXES = [INDEXES; INDEXES_x];
@@ -61,7 +61,7 @@ INDEXES = [INDEXES; INDEXES_x];
 
 figure;
 %plot(OldNav(1:LENGTH,2), OldNav(1:LENGTH,1), 'k-.'); 
-plot(OldNav(INDEXES,13), OldNav(INDEXES,12), 'k.-');
+plot(OldNav(INDEXES,13), OldNav(INDEXES,12), 'kx');
 
 hold on; axis equal; grid on;
 % plot(OldNav(:,2), OldNav(:,1), 'r.');

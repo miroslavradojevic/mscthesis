@@ -1,5 +1,5 @@
 \chapter{Methodology} \label{chap:methodology}
-Position, orientation and velocities of a vehicle underwater are stored within the state vector. Proposed solution for localization uses state-space approach and Extended Kalman Filter (EKF, Chapter \S~\ref{chap:kalman}) to estimate the value of the state vector using data from odometry sensors and acoustic positioning system (LBL), if available. Data are merged together using the EKF. Reasons for choosing this method are influenced by the application itself. Localisation is intended to work in unstructured environments, with no clear visibility, relying on kinetic and absolute position measurements. Therefore, approaches that use vision, or capture the terrain structure in order to aid the navigation were not an adequate solution. Relying on the remaining sensor configuration allows the usage of Kalman filter to iteratively and recursively estimate the state vector by combining together different types of dynamics-related data. State-space approach is convenient for manipulation with multivariate data and nonlinear or non Gaussian processes \cite{ristic04}. 
+Position, orientation and velocities of a vehicle underwater are stored within the state vector. Proposed solution for localization uses state-space approach and Extended Kalman Filter to estimate the value of the state vector using data from odometry sensors and acoustic positioning system (LBL), if available. Data are merged together using the EKF. Reasons for choosing this method are influenced by the application itself. Localisation is intended to work in unstructured environments, with no clear visibility, relying on kinetic and absolute position measurements. Therefore, approaches that use vision, or capture the terrain structure in order to aid the navigation were not an adequate solution. Relying on the remaining sensor configuration allows the usage of Kalman filter to iteratively and recursively estimate the state vector by combining together different types of dynamics-related data. State-space approach is convenient for manipulation with multivariate data and nonlinear or non Gaussian processes \cite{ristic04}. 
 
 Mathematical model of the system is the integral part of the Kalman filter. It is used to define the state transition law by applying well known kinematic equations.  Kinematic equations describe the object motion. \textit{Constant velocity} kinematic model is used as system model to predict the movements of the submerged body. States are predicted at each time-step using the model and previous state (equation ~\ref{eq:state-tran}). It is important to note that localization comes down to solving non-linear filtering problem. System model equations are nonlinear function of the state elements. Sensor measurements are used when available and incorporated into observation (measurement) in order to update and correct the predicted filter state. Range of available sensors give information on vehicle's current location state. Overview of the sensors and the values that they measure is given in Chapter \S~\ref{chap:sensors}.
 \section{Process model} \label{sec:system-model}
@@ -45,7 +45,7 @@ To summarize, implementing vehicle localization using EKF demands establishment 
 \label{fig:auv-states}
 \end{figure}
 
-EKF (Chapter ~\ref{chap:kalman}) was used in order to estimate the vehicle state vector. It was chosen as logic choice being an algorithm that integrates together different sensor measurements, makes a sub-optimal, recursive state estimation and above all, is derived for non-linear systems. As the theory of non-linear filtering suggests, state-space approach is used for modelling discrete-time dynamic system in this application. The main feature of EKF is that it linearises the system model and measurement model nonlinear functions. System model is further developed according to formulas ~\ref{eq:der-proc-state}, ~\ref{eq:der-proc-noise}, ~\ref{eq:der-mes-state} and ~\ref{eq:der-mes-noise} from Chapter on Nonlinear filtering \S~\ref{chap:methodology}, resulting in matrices:
+EKF (\S~\ref{sec:ekf}) was used in order to estimate the vehicle state vector. It was chosen as logic choice being an algorithm that integrates together different sensor measurements, makes a sub-optimal, recursive state estimation and above all, is derived for non-linear systems. As the theory of non-linear filtering suggests, state-space approach is used for modelling discrete-time dynamic system in this application. The main feature of EKF is that it linearises the system model and measurement model nonlinear functions. System model is further developed according to formulas ~\ref{eq:der-proc-state}, ~\ref{eq:der-proc-noise}, ~\ref{eq:der-mes-state} and ~\ref{eq:der-mes-noise} from Chapter on Nonlinear filtering \S~\ref{chap:methodology}, resulting in matrices:
 \begin{align*}
 \vect{F}(k) & = &  \frac{\partial f}{\partial X} (\vect{\hat{X}}(k \mid k-1), 0) & = & 
 \end{align*}
@@ -102,7 +102,7 @@ One of the features of EKF localization for an AUV is that measurements are not 
 A short overview of the sensor measurements and the pattern of formation of the measurement model is presented in following section. Idea for the solution has been introduced in \cite{ribas10}. Some other implementations of EKF for underwater navigation have reported the usage of similar strategy for merging the measurements together \cite{drolet00, blain03}. Sensors have been introduced with more details in chapter ~\ref{chap:sensors}. Linear observation model varies depending on the measured values and sensors used for the measurement. 
 \begin{itemize}
 \item \T{Pressure sensor}
-periodically ``feeds'' the filter with depth and heave velocity information. Heave velocity information is derived from depth measurement by derivation of its value per elapsed time. Measurement model is linear, described with the transformation matrix $\vect{H}_{depth}$. Uncertainty of the measurement is expressed with measurement noise matrix $\vect{R}$ (EKF, chapter ~\ref{chap:kalman}) - covariance of the measurement vector.  
+periodically ``feeds'' the filter with depth and heave velocity information. Heave velocity information is derived from depth measurement by derivation of its value per elapsed time. Measurement model is linear, described with the transformation matrix $\vect{H}_{depth}$. Uncertainty of the measurement is expressed with measurement noise matrix $\vect{R}$ (\S~\ref{sec:kf}) - covariance of the measurement vector.  
 \begin{equation}
 \label{eq:press-mes}
 \vect{H}_{depth}(k) = 
@@ -115,7 +115,7 @@ periodically ``feeds'' the filter with depth and heave velocity information. Hea
 0 & \sigma_{w}^{2} \end{array} \right]
 \end{equation}
 \item \T{Compass}
-supplies angular measurements such as pitch, yaw, pitch rate (figure ~\ref{fig:auv-positioning}). Similarly as with pressure sensor measurement model, rate of change of pitch is obtained with derivation of pitch measurement. Measurement model is linear, described with the transformation matrix $\vect{H}_{compass}$. $\vect{R}_{compass}$ is measurement noise matrix (EKF, chapter ~\ref{chap:kalman}) containing variances depicting Gaussian noise of particular measurements.
+supplies angular measurements such as pitch, yaw, pitch rate (figure ~\ref{fig:auv-positioning}). Similarly as with pressure sensor measurement model, rate of change of pitch is obtained with derivation of pitch measurement. Measurement model is linear, described with the transformation matrix $\vect{H}_{compass}$. $\vect{R}_{compass}$ is measurement noise matrix (\S~\ref{sec:kf}) containing variances depicting Gaussian noise of particular measurements.
 \begin{equation}
 \label{eq:com-mes}
 \vect{H}_{compass}(k) = 
@@ -141,7 +141,7 @@ measures yaw rate $(\dot{\psi})$. FOG, unlike compass, gives an absolute measure
 \sigma_{\dot{\psi}}^{2} \end{array} \right]
 \end{equation}  
 \item \T{Doppler Velocity Log (DVL)}
-measures linear speeds - surge and sway velocities with respect to vehicle axes (Figure ~\ref{fig:auv-axes}) and the altitude. $\vect{H}_{dvl}$ and $\vect{R}_{dvl}$ are measurement and measurement noise matrices (EKF, chapter ~\ref{chap:kalman}) containing variances depicting Gaussian noise of particular measurements. If DVL gives no valid velocity output due to insufficient signal (DVL lock lost), EKF is using the available data available from other sensors to make an update or it is just maintaining the increasingly uncertain prediction part until the fresh observation arrives.    
+measures linear speeds - surge and sway velocities with respect to vehicle axes (Figure ~\ref{fig:auv-axes}) and the altitude. $\vect{H}_{dvl}$ and $\vect{R}_{dvl}$ are measurement and measurement noise matrices containing variances depicting Gaussian noise of particular measurements. If DVL gives no valid velocity output due to insufficient signal (DVL lock lost), EKF is using the available data available from other sensors to make an update or it is just maintaining the increasingly uncertain prediction part until the fresh observation arrives.    
 \begin{equation}
 \label{eq:dvl-mes}
 \vect{H}_{dvl}(k) = 
@@ -207,21 +207,30 @@ IMU is integrating acceleration or speed data collected from devices such as gyr
 \section{Sensor fusion}
 Localisation algorithm collects the incoming sensor information and computes the pose of the vehicle by processing the whole data cluster obtained from sensor devices. Such procedure is regarded as \textit{sensor fusion}. Basic sort of sensor fusion implementation is incorporated in navigation algorithm by combining different quantities into a jointly updated state vector.
 \section{Implementation} \label{sec:implementation}
-Localisation algorithm was planned to be part of navigation module of Ocean System Lab's Nessie vehicle. Vehicle's real-time operating system is Linux (Unix). Designing navigation requires programming the module using C++ programming language, conforming with available libraries. The aim is to produce an applicable module that fits in the existing software system and accomplishes the task theoretically explained in this chapter. In addition, Nessie is supported with Robot Operating System (ROS, \url{http://www.ros.org/wiki/}) - meta operating system that manages various processes maintained on vehicle and the real-time exchange of data between different modules. Hence, EKF navigation is implemented as a ROS package tailored to Nessie's messaging and processing scheme. 
+Localisation algorithm was planned to be part of navigation module of Ocean System Lab's Nessie vehicle. Vehicle's real-time operating system is Linux (Unix). Designing navigation requires programming the module using C++ programming language, conforming with available libraries. The aim is to produce an applicable module that fits in the existing software system and accomplishes the task theoretically explained in this chapter. In addition, Nessie is supported with Robot Operating System (ROS, \url{http://www.ros.org/wiki/}) - meta operating system that manages various processes maintained on vehicle and the real-time exchange of data between different modules. Hence, EKF navigation is implemented as a ROS package tailored to Nessie's messaging and processing scheme. One of the difficulties that needs to be taken into account when working with angles is angle wrapping - an inevitable issue in all the implementations that involve angular values. Fact is that filtering does calculations with the angular values. Moreover, angular functions are $2\pi$ periodical. Hence, it is sufficient to represent the values in a limited interval, e.g. from $(0,2\pi]$, or $(-\pi,+\pi]$. Angle values need to be scaled back to the interval after multiplication or subtraction because the value obtained without wrapping can be misleading, especially if it expresses discrepancy or if is used for the correction. Simply, raw subtraction does not always correctly express the relation between two angles in terms of their difference and can cause unwanted behaviour. An example is shown in Figure ~\ref{fig:ang-wrapping}. Two similar angular signals (real and estimated heading value: $ang_{1}$ and $ang_{2}$, wrapped in different intervals) have been subtracted (Figure ~\ref{fig:ang-wrapping}, up). If the output of subtraction is used for control or gain, system would sense false jumps. Different intervals of angle wrapping (Figure ~\ref{fig:ang-wrapping}, down) can make difference, too. Therefore angle wrapping to $0,2\pi$ and $-\pi,+\pi$ does not give the same result. 
+%%%%%\begin{figure}%[htp]
+%%%%%  \begin{center}
+%%%%%    \subfigure[First angular signal.]   {\label{fig:first}   
+%%%%%    \includegraphics[width=0.42\textwidth]{methodology/fig/angle1.eps}}
+%%%%%    \subfigure[Second angular signal.]{\label{fig:second}
+%%%%%    \includegraphics[width=0.42\textwidth]{methodology/fig/angle2.eps}}  \\
+%%%%%    \subfigure[Difference of two signals. ]   {\label{fig:diff}   
+%%%%%    \includegraphics[width=0.42\textwidth]{methodology/fig/angle1-2.eps}}
+%%%%%    \subfigure[Angle wrapping in $0/+360$ and $-180/+180$. Angular values used as gain should be wrapped around zero.]{\label{fig:diff-wrap}
+%%%%%    \includegraphics[width=0.42\textwidth]{methodology/fig/wrapangle1-2.eps}}   
+%%%%%  \end{center}
+%%%%%  \caption{}
+%%%%%  \vspace{-10pt}
+%%%%%  \label{fig:ang-wrapping}
+%%%%%\end{figure} 
 
-One of the issues that need to be corrected when working with angles is angle wrapping. It is an inevitable issue in Kalman Filter implementations that involve angular values stored in the state vector. Fact is that filtering does calculations with angular values. Moreover, angular functions are $2\pi$ periodical. Because they are periodical, it is sufficient to represent values in a limited interval, e.g. from $0^{\circ} \div 360^{\circ}$, or $-180^{\circ} \div +180^{\circ}$. Angle values need to be scaled back to the interval after multiplication or subtraction because the value obtained without wrapping can be misleading, especially if it expresses discrepancy or is used for correction. For instance, $-4^{\circ}$ and $356^{\circ}$ are same angle actually, however, using each of them for correction can cause misinterpretation in the filter itself. An example is shown in Figure ~\ref{fig:ang-wrapping}. Two angular signals (real and estimated heading value) have been subtracted. If the output of subtraction is used for control or gain, angle wrapping can make a lot of difference, even different ranges of angle wrapping (Figure ~\ref{fig:diff-wrap}). Raw subtraction does not correctly express the relation between two angles (Figure ~\ref{fig:diff-wrap}).
-\begin{figure}%[htp]
-  \begin{center}
-    \subfigure[First angular signal.]   {\label{fig:first}   
-    \includegraphics[width=0.42\textwidth]{methodology/fig/angle1.eps}}
-    \subfigure[Second angular signal.]{\label{fig:second}
-    \includegraphics[width=0.42\textwidth]{methodology/fig/angle2.eps}}  \\
-    \subfigure[Difference of two signals. ]   {\label{fig:diff}   
-    \includegraphics[width=0.42\textwidth]{methodology/fig/angle1-2.eps}}
-    \subfigure[Angle wrapping in $0/+360$ and $-180/+180$. Angular values used as gain should be wrapped around zero.]{\label{fig:diff-wrap}
-    \includegraphics[width=0.42\textwidth]{methodology/fig/wrapangle1-2.eps}}   
-  \end{center}
-  \caption{Importance of angle wrapping.}
-  \vspace{-10pt}
-  \label{fig:ang-wrapping}
+%For instance, $-4^{\circ}$ and $356^{\circ}$ are the same angle, but using each of them as some sort of a control input can cause unwanted behaviour. 
+\begin{figure}[h]
+\vspace{-10pt}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{methodology/fig/angle1.eps}
+\caption{Importance of angle wrapping. Angular values used as gain should be wrapped around zero.}
+\vspace{-10pt}
+\label{fig:ang-wrapping}
+\end{center}
 \end{figure} 

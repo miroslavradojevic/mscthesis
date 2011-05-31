@@ -16,7 +16,7 @@
 			amsmath,
 			algorithm,
 			url,
-			hyperref,
+			%hyperref,
 			algorithm,
 			algorithmic,
 			subfigure,
@@ -33,7 +33,7 @@
 			pifont,     % for table details
 			fmtcount			
 			}
-			
+\usepackage[breaklinks=true]{hyperref}			
 \marginsize{4cm}{2.5cm}{4cm}{4cm}
 
 %\usepackage{draft} %draft option - doesn't put full figures in -
@@ -81,8 +81,8 @@
 
 \input{intro/intro.tex}
 \input{problem-def/problem-def.tex}
-\input{auv-overview/auv-overview.tex}
-\input{kalman/kalman.tex}
+\input{auv-overview/auv-overview.tex} % lit. review will be included from auv-overview.tex
+%\input{kalman/kalman.tex}
 \input{sensors/sensors.tex}
 %%% this section is replaced %%%\input{state-of-the-art/state-of-the-art.tex}
 \input{methodology/methodology.tex}
