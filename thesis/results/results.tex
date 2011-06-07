@@ -13,9 +13,10 @@ Main purpose of the thesis is the implementation of a navigation system that use
     \includegraphics[width=0.45\linewidth]{results/fig/lostFOG.eps}} \\   
 \end{figure}
 
-\T{Trajectory filtering: } Spiral trajectory and surfacing action was taken with Nessie starting from the depth of around 12 m. EKF filtering results are shown in Figure ~\ref{fig:spiral} together with LBL position updates and dead reckoning starting from each position. Similarly as with previous plots, dead reckoning was shown together with LBL position updates. Filtered trajectory does not experience severe jumps, and the curve seems to be smoother and less prone to drifting. Standard deviation of north and east measurement parameter (Table ~\ref{tab:ekf-params}) was tested with different values, causing more or less confidence in LBL measurement hence shaping the filtered localisation curve. Presented LBL measurements are exhibiting quite diverse range of values.
+\T{Trajectory filtering: } Spiral trajectory and surfacing action was taken with Nessie starting from the depth of around 12 m. EKF estimation results are shown in Figure ~\ref{fig:spiral} together with LBL position updates and dead reckoning starting from each position. Similarly as with previous plots, dead reckoning was shown together with LBL position updates. Filtered trajectory does not experience severe jumps, and the curve seems to be smoother and less prone to drifting. Standard deviation of north and east measurement parameter (Table ~\ref{tab:ekf-params}) was tested with different values, causing more or less confidence in LBL measurement hence shaping the filtered localisation curve. 
 
-Causes of position correction errors are numerous: from ``multipathing'' outliers (Figure ~\ref{fig:multipathing}) till the imprecision inferred from the nature of volatile acoustic and GPS information. ``Multipathing'' causes outliers in position information as a result of false reflections for instance. Acoustic and GPS imprecision can be treated as Gaussian random variable. 
+LBL measurements exhibit quite diverse range of values. Causes of position correction errors are numerous: from ``multipathing'' outliers (Figure ~\ref{fig:multipathing}) till the imprecision inferred from the nature of volatile acoustic and GPS information. ``Multipathing'' causes outliers in position information as a result of false reflections for instance. Acoustic and GPS imprecision can be treated as Gaussian random variable. 
+
 \begin{wrapfigure}{r}{0.55\textwidth}
 \vspace{-10pt}
   \centering
@@ -42,14 +43,14 @@ It is important to say that LBL position filtering was implemented in form of me
     %\includegraphics[width=0.45\linewidth]{results/fig/spiral-ekf.eps}}     
 \end{figure}
 
-\T{Square trajectories: } square trajectories were tested in low depths of a lake, with the GPS signal available to be used as a position reference and ground truth indication (Figures ~\ref{fig:no-gps}, ~\ref{fig:with-gps}). Dead reckoning navigation was used as a reference when controlling the vehicle movement during the experiment. This fact can cause slight confusion in analysis of the trajectory graphs since all the dynamics and forces were applied with respect to the dead reckoning navigation which is an estimated value, not the real existing one. It is a slightly inverse logic of testing, nevertheless further tests are yet to be accomplished. Emphasis of this experiment was to show that EKF can work successfully and analyse the main characteristics of the navigation design. It is likely that the GPS emulated square-shaped trajectories float as the elapsed path becomes longer. GPS signal available from the antenna located on the water surface is serving as a measure of absolute position within the lake - giving an idea about the actual vehicle position while it tries to moves within the boundaries of estimated dead reckoning position. 
+\T{Square trajectories: } square trajectories were tested in low depths of a lake, with the GPS signal available to be used as a position reference and ground truth indication (Figures ~\ref{fig:gps-map}, ~\ref{fig:no-gps} and ~\ref{fig:with-gps}). Dead reckoning navigation was used as a reference when controlling the vehicle movement during the experiment. This fact can cause slight confusion in analysis of the trajectory graphs since all the dynamics and forces were applied with respect to the dead reckoning navigation which is an estimated value, not the real existing one. It is a slightly inverse logic of testing, nevertheless further tests are yet to be accomplished. Emphasis of this experiment was to show that EKF can work successfully and analyse the main characteristics of the navigation design. It is likely that the GPS emulated square-shaped trajectories float as the elapsed path becomes longer. GPS signal available from the antenna located on the water surface is serving as a measure of absolute position within the lake - giving an idea about the actual vehicle position while it tries to moves within the boundaries of estimated dead reckoning position. 
 
-Main issue when performing the square trajectory tests was significant imprecision of GPS signal. Many reasons can possibly influence the imprecision: from the weather conditions till surrounding objects. Basically anything that can affect the satellite visibility and the quality of the signal. Drifting can reach up to several meters which is unacceptable considering the trajectory length. Finally, the trajectory of the experiment itself is quite short ($ \approx 10 m $) to be seriously and accurately covered with precise GPS position update. Figure ~\ref{fig:gps} shows the tested trajectory and depicts the encountered amount of GPS imprecision.
+Main issue when performing the square trajectory tests was significant imprecision of GPS signal. Many reasons can possibly influence the imprecision: from the weather conditions till surrounding objects. Basically anything that can affect the satellite visibility and the quality of the signal. Drifting can reach up to several meters which is unacceptable considering the trajectory length. Finally, the trajectory of the experiment itself is quite short ($ \approx 10 m $) to be seriously and accurately covered with precise GPS position update. Figures ~\ref{fig:gps-map} and ~\ref{fig:gps-signal} show the tested trajectory and depict the encountered amount of GPS imprecision.
 \begin{figure}%[htb]
   \centering
     \subfigure[Coordinates of the tested square trajectory pasted on the lake map.] {\label{fig:gps-map}
 	\includegraphics[width=0.48\linewidth]{results/fig/square-trajectory.eps}}
-    \subfigure[GPS signal as it appears originally.] {\label{fig:gps-signal}
+    \subfigure[GPS signal as it appears originally when following the square trajectory.] {\label{fig:gps-signal}
 	\includegraphics[width=0.48\linewidth]{results/fig/gps-signal.eps}}
 \end{figure}
 
@@ -60,9 +61,8 @@ Main issue when performing the square trajectory tests was significant imprecisi
 	\includegraphics[width=0.48\linewidth]{results/fig/spiral2d.eps}}
     \subfigure[Depth.] {\label{fig:spiral-depth}
     \includegraphics[width=0.48\linewidth]{results/fig/spiral-depth.eps}}
-    % \\  
-    %\subfigure[Path (temporary plot).] {\label{fig:spiral3d}
-    %\includegraphics[width=0.8\linewidth]{results/fig/spiral3d.eps}} 
+    \caption{Spiral trajectory and the trajectory estimation using EKF.}
+    \label{fig:spiral}
 \end{figure}
 \begin{figure}%[h]
   \centering

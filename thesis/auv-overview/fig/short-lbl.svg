@@ -3436,7 +3436,8 @@
          sodipodi:role="line"
          id="tspan20220-2-5"
          x="283.74615"
-         y="167.4142">query</tspan></text>
+         y="167.4142"
+         style="-inkscape-font-specification:BKM-cmr10;font-family:BKM-cmr10;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">query</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -3447,6 +3448,7 @@
          sodipodi:role="line"
          id="tspan20224-9"
          x="266.0809"
-         y="95.627182">response</tspan></text>
+         y="95.627182"
+         style="-inkscape-font-specification:BKM-cmr10;font-family:BKM-cmr10;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">response</tspan></text>
   </g>
 </svg>

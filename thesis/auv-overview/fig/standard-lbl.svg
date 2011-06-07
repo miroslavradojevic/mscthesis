@@ -14,7 +14,7 @@
    id="svg22049"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="New document 88">
+   sodipodi:docname="standard-lbl.svg">
   <defs
      id="defs22051">
     <inkscape:perspective
@@ -91,17 +91,17 @@
      borderopacity="0.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="0"
-     inkscape:zoom="0.35"
+     inkscape:zoom="0.98994949"
      inkscape:cx="350"
      inkscape:cy="520"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="613"
-     inkscape:window-height="488"
+     inkscape:window-width="1366"
+     inkscape:window-height="693"
      inkscape:window-x="0"
      inkscape:window-y="24"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata22054">
     <rdf:RDF>
@@ -110,7 +110,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3410,7 +3410,8 @@
          sodipodi:role="line"
          id="tspan20224"
          x="380.35715"
-         y="516.22797">response</tspan></text>
+         y="516.22797"
+         style="-inkscape-font-specification:BKM-cmr10;font-family:BKM-cmr10;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">response</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -3420,6 +3421,7 @@
          sodipodi:role="line"
          id="tspan20220-2"
          x="316.3616"
-         y="403.26901">query</tspan></text>
+         y="403.26901"
+         style="-inkscape-font-specification:BKM-cmr10;font-family:BKM-cmr10;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">query</tspan></text>
   </g>
 </svg>

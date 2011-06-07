@@ -1,12 +1,13 @@
 close all; clear all; clc;
 
 EXPORT_IMAGES = 1;
-MAXIMIZE = 1;
+MAXIMIZE = 0;
 InputMessages  =  importdata('logFile.input',  ',');
 Observations   = csvread('logFile.obser');
 OutputMessages  = importdata('logFile.output', ',');
 GpsMessages     = importdata('logFile.gps', ',');
 OldNav          = importdata('logFile.old', ',');
+[name, value]   = textread('logFile.params', '%s %f',17); % read parameters used for ekf
 % //indexing constants - state vector
 % #define NORTH_INDEX       0
 % #define EAST_INDEX        1
@@ -36,77 +37,126 @@ for i = 1 : size(Observations, 1),
 end
 time = cumsum(InputMessages(:,1));
 
-LENGTH = floor(0.9 * size(OldNav,1));
+LENGTH = floor(1.0 * size(OldNav,1));
 GPSnav = OldNav(:,12:13);
 INDEXES_o = find(abs(OldNav(1:LENGTH,5))<0.001);
 INDEXES_x = find(abs(OldNav(1:LENGTH,5))>0.5);
 INDEXES = [];
 %INDEXES = [INDEXES; INDEXES_o];
 INDEXES = [INDEXES; INDEXES_x];
-%%%%%% NORTH-EAST TEST %%%%%%%%
-% % % % figure;%('Position',[(scrsz(3)/2) 30 (scrsz(3)/2) (scrsz(4)-104)],'Renderer','zbuffer','doublebuffer','on');
-% % % % plot3(OldNav(:,2), OldNav(:,1), OldNav(:,3), 'y-.'); hold on; grid on; axis equal;
-% % % % plot3(OldNav(:,2), OldNav(:,1), OldNav(:,3), 'r.');
-% % % % set(gcf, 'Position', get(0,'Screensize')); % Maximize figure.
-% % % % set(gca,'ZDir','reverse');
-% % % % plot3(Obs(:,2), Obs(:,1), OldNav(:,3), 'bo');
-% % % % plot3(OutputMessages(:,2), OutputMessages(:,1), OutputMessages(:,3), 'g', 'LineWidth', 3); hold on;
-% % % % rotate3d(gcf);
-% % % % xlabel('east [m]');  ylabel('north [m]'); zlabel('depth [m]');
-% % % % legend('rejected outlier', 'median&dead recon', 'lbl', 'ekf');
-% % % % if(EXPORT_IMAGES),
-% % % %             set(gcf, 'Color', 'none');  
-% % % %             export_fig ekfForLbl3d.eps -eps -a1;
-% % % % end
+
+%%%%%% UKF FILTERING OFFLINE ADDED %%%%%%
+lambda = -0.5;
+for i = 1 : size(Observations, 1),
+        if(i==1),
+            X(1:11) = InputMessages(1, 2:12);
+            V(1:5)  = zeros(1,5);
+            N(1:11) = zeros(1,11);
+            X=X'; V=V'; N=N'; 
+            Pv=[value(12)^2 value(13)^2 value(14)^2 value(15)^2 value(16)^2];
+            Pn=[value(1)^2    value(2)^2   value(3)^2 value(4)^2 ...
+                value(5)^2    value(6)^2 ...
+                value(7)^2    value(8)^2   value(9)^2 ...
+                value(10)^2   value(11)^2];
+            Px=zeros(1,11); Px(find(X~=0))=1; Px = Px .* Pn;
+            % join together
+            XA = [X; V; N];
+            PA = [Px Pv Pn];
+            PA = diag(PA);
+        end  
+    At = InputMessages(i,1);    
+    MeasurementLen = Observations(i,1);
+    if(Observations(i,1:3) == [1 0 0]),
+        disp('nothing measured... empty observation...');
+        % should just do the prediction
+        z = NaN; conf = [0];
+        [XA, PA] = UnscentedKalman(XA, PA, z, At, conf, lambda);
+    else
+        % there was a measurement
+        MeasurementVec = Observations(i,2:MeasurementLen+1);
+        MeasurementStates = Observations(i,MeasurementLen+2:2*MeasurementLen+1);
+        for j = 1 : length(MeasurementStates),
+            Obs(i,MeasurementStates(j)) = MeasurementVec(j);
+        end
+        z = MeasurementVec;
+        conf = MeasurementStates;
+        %At = InputMessages(i,1);
+        [XA, PA] = UnscentedKalman(XA, PA, z, At, conf, lambda);
+    end
+    X_ukf(i, :) = XA(1:11)'; 
+    P_ukf(i,:) = diag(PA)';
+end
 
 figure;
-plot(OldNav(INDEXES,13), OldNav(INDEXES,12), 'kx');
+%GPS
 plot(OldNav(1:LENGTH,13), OldNav(1:LENGTH,12), 'kx');
 hold on; axis equal; grid on;
+%EKF
 plot(OutputMessages(1:LENGTH,2), OutputMessages(1:LENGTH,1), 'g', 'LineWidth', 2);
-plot(OldNav(1:LENGTH,2), OldNav(1:LENGTH,1), 'b-.'); 
+%UKF
+plot(X_ukf(1:LENGTH,2), X_ukf(1:LENGTH,1), 'b', 'LineWidth', 2);
+%DR
+plot(OldNav(1:LENGTH,2), OldNav(1:LENGTH,1), 'k-.'); 
 xlabel('east [m]'); ylabel('north [m]'); 
 %plot(GpsMessages(:,2), GpsMessages(:,1), 'ro');
-legend( 'gps', 'ekf','dead recon');
-%title('ekf localisation');
+legend( 'gps', 'ekf', 'ukf','dead recon');
 if(MAXIMIZE)
     set(gcf, 'Position', get(0,'Screensize')); % Maximize figure.
 end
 if(EXPORT_IMAGES),
             set(gcf, 'Color', 'none');  
-            export_fig squareWithGps-05.eps -eps -a1;
+            export_fig squareWithGpsUkf-05.eps -eps -a1;
 end
-
 time = cumsum(InputMessages(:,1));
 %%%%% NORTH vs EAST %%%%%%%%%%
-% % % % % % % figure;
-% % % % % % % subplot(211);
-% % % % % % % plot(time, OldNav(:,1), 'r.'); hold on; grid on;axis equal;
-% % % % % % % plot(time, Obs(:,1), 'bx');
-% % % % % % % plot(time, OutputMessages(:,1), 'g');
-% % % % % % % 
-% % % % % % % plot(time, OutputMessages(:,1)+2*sqrt(OutputMessages(:,12)),'k-.'); 
-% % % % % % % plot(time, OutputMessages(:,1)-2*sqrt(OutputMessages(:,12)),'k-.');
-% % % % % % % 
-% % % % % % % legend('dead reckoning','measured', 'filtered');
-% % % % % % % xlabel('time [s]');  ylabel('north [m]');
-% % % % % % % 
-% % % % % % % subplot(212);
-% % % % % % % plot(time, OldNav(:,2), 'r.'); hold on; grid on;axis equal;
-% % % % % % % plot(time, Obs(:,2), 'bx');
-% % % % % % % plot(time, OutputMessages(:,2), 'g');
-% % % % % % % 
-% % % % % % % %plot(time, OutputMessages(:,2)+2*sqrt(OutputMessages(:,13)),'k-.'); 
-% % % % % % % %plot(time, OutputMessages(:,2)-2*sqrt(OutputMessages(:,13)),'k-.');
-% % % % % % % 
-% % % % % % % legend('dead reckoning','measured', 'filtered');
-% % % % % % % xlabel('time [s]');  ylabel('east [m]');
-% % % % % % % 
-% % % % % % % if(EXPORT_IMAGES),
-% % % % % % %             set(gcf, 'Color', 'none');  
-% % % % % % %             export_fig north-east.eps -eps -a1;
-% % % % % % % end
-% % % % % % % 
+figure;
+subplot(511);
+plot(time, OldNav(:,1), 'k-.'); hold on; grid on;%axis equal;
+plot(time, Obs(:,1), 'kx');
+plot(time, OutputMessages(:,1), 'g', 'LineWidth', 2);
+%plot(time, X_ukf(:,1), 'b', 'LineWidth', 2);
+%plot(time, OutputMessages(:,1)+2*sqrt(OutputMessages(:,12)),'k-.'); 
+%plot(time, OutputMessages(:,1)-2*sqrt(OutputMessages(:,12)),'k-.');
+legend('dead reckon','gps', 'ekf'); % , 'ukf'
+xlabel('time [s]');  ylabel('north [m]');
+
+subplot(512);
+plot(time, OldNav(:,2), 'k-.'); hold on; grid on;%axis equal;
+plot(time, Obs(:,2), 'kx');
+plot(time, OutputMessages(:,2), 'g', 'LineWidth', 2);
+%plot(time, X_ukf(:,2), 'b', 'LineWidth', 2);
+%plot(time, OutputMessages(:,2)+2*sqrt(OutputMessages(:,13)),'k-.'); 
+%plot(time, OutputMessages(:,2)-2*sqrt(OutputMessages(:,13)),'k-.');
+legend('dead reckon','gps', 'ekf'); % , 'ukf'
+xlabel('time [s]');  ylabel('east [m]');
+
+subplot(513);
+plot(time, (Obs(:,8))*180/pi, 'kx');  hold on; ylabel('yaw [deg]');
+plot(time, OutputMessages(:,8) *180/pi, 'g', 'LineWidth', 2);
+legend('measured', 'ekf');
+xlabel('time [s]');  ylabel('heading [deg]');
+
+subplot(514);
+plot(time, Obs(:,5), 'kx');  hold on;
+plot(time, OutputMessages(:,5), 'g', 'LineWidth', 2);
+%plot(time, OutputMessages(:,5)+2*sqrt(OutputMessages(:,16)),'k-.'); 
+%plot(time, OutputMessages(:,5)-2*sqrt(OutputMessages(:,16)),'k-.');
+legend('measured', 'ekf');% , '2\sigma boundary'
+ylabel('surge [m/s]');
+% 
+subplot(515);
+plot(time, Obs(:,6), 'kx'); hold on;
+plot(time, OutputMessages(:,6), 'g', 'LineWidth', 2);
+% plot(time, OutputMessages(:,6)+2*sqrt(OutputMessages(:,17)),'k-.'); 
+% plot(time, OutputMessages(:,6)-2*sqrt(OutputMessages(:,17)),'k-.');
+legend('measured', 'ekf'); %, '2\sigma boundary'
+ylabel(' sway [m/s]');
+
+if(EXPORT_IMAGES),
+            set(gcf, 'Color', 'none');  
+            export_fig values.eps -eps -a1;
+end
+ 
 % % % % % % % %%%%%% YAW-YAW RATE TEST %%%%%%%%
 figure;
 
@@ -118,7 +168,7 @@ plot(time, OutputMessages(:,8) *180/pi, 'r');
 % plot(time, outputmessages(:,8)*180/pi-2*sqrt(outputmessages(:,19)*180/pi),'k-.');
 % plot(time, (outputmessages(:,8)-obs(:,8)+2*pi)*180/pi, 'b.'); grid on;
 legend('measured', 'filtered');
-%title ('compass');
+xlabel('time [s]');  ylabel('heading [deg]');
 
 subplot(412);
 plot(time, Obs(:,10), 'kx'); hold on; ylabel('yaw rate [rad/s]');

@@ -14,7 +14,7 @@
    id="svg27274"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="New document 99">
+   sodipodi:docname="ultra-short-lbl.svg">
   <defs
      id="defs27276">
     <inkscape:perspective
@@ -91,17 +91,17 @@
      borderopacity="0.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="0"
-     inkscape:zoom="0.35"
+     inkscape:zoom="0.7"
      inkscape:cx="350"
      inkscape:cy="520"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="613"
-     inkscape:window-height="488"
+     inkscape:window-width="1366"
+     inkscape:window-height="693"
      inkscape:window-x="0"
      inkscape:window-y="24"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata27279">
     <rdf:RDF>
@@ -110,7 +110,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2111,7 +2111,8 @@
          sodipodi:role="line"
          id="tspan20220"
          x="442.85715"
-         y="495.21933">query</tspan></text>
+         y="495.21933"
+         style="-inkscape-font-specification:BKM-cmr10;font-family:BKM-cmr10;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">query</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -2121,7 +2122,8 @@
          sodipodi:role="line"
          id="tspan20224-0"
          x="628.34967"
-         y="593.6889">response</tspan></text>
+         y="593.6889"
+         style="-inkscape-font-specification:BKM-cmr10;font-family:BKM-cmr10;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">response</tspan></text>
     <g
        id="g3854-1-8"
        transform="matrix(0.34901227,0,0,0.34901227,705.69456,201.68902)">

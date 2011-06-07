@@ -1,0 +1,54 @@
+\section{EXTENDED KALMAN FILTER} \label{sec:ekf}
+System can be described with set of states that evolve in time according to mathematical functions that are usually nonlinear. Nonlinear state prediction $f()$ would use previous state estimate $ \vect{\hat{x}}(k-1) $, possible control input $\vect{u}(k)$ and mean value of the process noise ($\vect{0}$):
+\begin{equation}
+\vect{\hat{x}}(k \mid k-1) = f(\vect{\hat{x}}(k-1), \vect{u}(k), 0)
+\label{eq:state-pred-nonlin}
+\end{equation} 
+EKF is intended for solving sub-optimal state estimation of a nonlinear system \cite{grewal01}. The main characteristic of EKF is that it analytically approximates - linearises - the process and measurement functions $(f()$ and $h())$. Linearisation implies approximating these functions with their first derivative around current prediction, similarly as the ordinary math functions are approximated with Taylor polynomials of first degree. In this case, derivation is slightly more complex since model functions $f()$ and $h()$ take several input vectors and output the resulting vector. Hence, the derivation will consist of partial derivation of process per state input vector (Equation ~\ref{eq:der-proc-state}) and per noise input vector (Equation ~\ref{eq:der-proc-noise}). Partial derivation of measurement function per state (Equation ~\ref{eq:der-mes-state}) and measurement noise (Equation ~\ref{eq:der-mes-noise}). Partial derivatives themselves will be Jacobian matrices considering that vector is derived per vector. 
+\begin{equation}
+\vect{F}(k) = \frac{\partial f}{\partial x} (\vect{\hat{x}}(k \mid k-1), \vect{u}(k), 0)
+\label{eq:der-proc-state}
+\end{equation} 
+\begin{equation}
+\vect{W}(k) = \frac{\partial f}{\partial n} (\vect{\hat{x}}(k \mid k-1), \vect{u}(k), 0)
+\label{eq:der-proc-noise}
+\end{equation}
+\begin{equation}
+\vect{H}(k) = \frac{\partial h}{\partial x} (\vect{\hat{x}}(k \mid k-1), 0)
+\label{eq:der-mes-state}
+\end{equation} 
+\begin{equation}
+\vect{V}(k) = \frac{\partial h}{\partial m} (\vect{\hat{x}}(k \mid k-1), 0)
+\label{eq:der-mes-noise}
+\end{equation}
+Subsequently, filtering process can be treated similarly as classic, discrete linear KF (Algorithm ~\ref{alg:ekf}). 
+\begin{algorithm}%[h!]
+\caption{The Discrete Extended Kalman Filter} \label{alg:ekf}
+\begin{algorithmic}
+\REQUIRE $E\lbrace \vect{x}(0) \rbrace = \vect{x}(0) = \vect{\hat{x}}(0)$
+\COMMENT{initialize state}
+\REQUIRE $\vect{P}(0) = \delta_{jk} \vect{P_{0}} $ 
+\COMMENT {initialize covariance}
+\LOOP 
+	\STATE $k \Leftarrow k+1$ 
+	\STATE $\vect{\hat{x}}(k \mid k-1) = f(\vect{\hat{x}}(k-1), \vect{u}(k), 0)$
+	\COMMENT {state prediction}
+	\STATE $\vect{P}(k \mid k-1) = \vect{F}(k) \vect{P}(k-1) \vect{F}^{T}(k) + \vect{W}(k) \vect{Q} \vect{W}^{T}(k)$
+	\COMMENT {state prediction uncertainty}	
+	
+	\STATE $\nu = \vect{z}(k) - h(\vect{\hat{x}}(k \mid k-1), 0)$	
+	\COMMENT {innovation}
+	\STATE $\vect{S} = \vect{H}(k) \vect{P}(k \mid k-1) \vect{H}^{T}(k) + \vect{V}(k) \vect{R} \vect{V}^{T}(k)$	
+	\COMMENT {innovation uncertainty}	
+	\STATE $\vect{K} = \vect{P}(k \mid k-1) \vect{H}^{T}(k) \vect{S}^{-1}$	
+	\COMMENT {``Kalman gain''}	
+	
+	\STATE $\vect{\hat{x}}(k) = \vect{\hat{x}}(k \mid k-1) + \vect{K} \nu$
+	\COMMENT {state correction} 
+	\STATE $\vect{P}(k) = (\vect{I}-\vect{K}\vect{H}(k))\vect{P}(k \mid k-1)$
+	\COMMENT {state correction uncertainty}
+	\RETURN $\vect{\hat{x}}(k), \vect{P}(k)$
+\ENDLOOP
+\end{algorithmic}
+\end{algorithm}
+Process model mathematically describes how the state changes for the given input (Equation ~\ref{eq:state-pred-nonlin}). Essential invention in EKF algorithm is the linearisation of the given function around current state mean and variance which further results in estimation process similar to the one described for linear KF \cite{kalman60}.

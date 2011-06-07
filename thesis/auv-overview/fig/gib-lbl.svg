@@ -15,7 +15,7 @@
    id="svg14847"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="New document 22">
+   sodipodi:docname="gib-lbl.svg">
   <defs
      id="defs14849">
     <inkscape:perspective
@@ -125,7 +125,7 @@
      borderopacity="0.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="0"
-     inkscape:zoom="0.35"
+     inkscape:zoom="0.49497475"
      inkscape:cx="350"
      inkscape:cy="520"
      inkscape:document-units="px"
@@ -144,7 +144,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3455,23 +3455,25 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="-513.33588"
+       x="-509.33588"
        y="480.99237"
        id="text20218-1-0-7"><tspan
          sodipodi:role="line"
          id="tspan20220-2-5-7"
-         x="-513.33588"
-         y="480.99237">query</tspan></text>
+         x="-509.33588"
+         y="480.99237"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10">query</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="-348.86884"
-       y="480.41809"
+       x="-292.86884"
+       y="448.41809"
        id="text20222-7-4"><tspan
          sodipodi:role="line"
          id="tspan20224-9-1"
-         x="-348.86884"
-         y="480.41809">response</tspan></text>
+         x="-292.86884"
+         y="448.41809"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10">response</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
        d="m -334.20891,288.22691 -38.6776,35.19149 -0.9668,-19.19536 -33.8428,28.79304"

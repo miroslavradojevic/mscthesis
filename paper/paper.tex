@@ -1,0 +1,155 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+%\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                           % if you need a4paper
+\documentclass[a4paper, 10pt, conference]{ieeeconf}        % Use this line for a4
+                                                           % paper
+
+\IEEEoverridecommandlockouts                               % This command is only
+                                                           % needed if you want to
+                                                           % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+% packages
+\usepackage{epsf, epstopdf,	graphicx, xcolor, 
+			latexsym,
+			anysize, % for margins left, right top bottom
+			setspace, cite,	moreverb,
+			fancyhdr, %does the headers on the pages - keep in
+			algorithm, url,
+			%hyperref,
+			algorithmic, subfigure, 
+			booktabs,
+			multirow, % table
+			wrapfig, tabularx,  % table tool
+			colortbl,  % color in table
+			multirow,  % table package
+			rotating, empheq, bbding,    % for table details
+			pifont,     % for table details
+			fmtcount			
+			}
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{authblk}
+
+%%%%% my add-ons %%%%%
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\T}{\texttt}
+
+\title{\LARGE \bf
+Underwater Vehicle Localisation using Extended Kalman Filter
+}
+%\author{Miroslav Radojevi\'{c}\thanks{M. Radojevi\'{c} is a student in ViBot programme, {\tt \small miroslav.radojevic@gmail.com}} and Yvan Petillot\thanks{Y. Petillot is with the Oceans Systems Laboratory, Heriot-Watt University, Edinburgh, UK}}
+\author[1]{Miroslav Radojevi\'{c}}
+\author[2]{Yvan Petillot}
+\affil[1]{Erasmus Mundus Master in Computer Vision and Robotics (ViBot) student}
+\affil[2]{Ocean Systems Laboratory, Heriot-Watt University, Edinburgh, UK}
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\let\oldthefootnote\thefootnote
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\footnotetext[1]{To whom correspondence should be addressed. Email: \url{miroslav.radojevic@gmail.com}}
+\let\thefootnote\oldthefootnote
+
+
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+In order to accomplish various missions, autonomous underwater vehicles (AUVs) need to be capable of estimating their position within the environment. This is a prerequisite of a successful mission since further tasks strongly rely on navigation information. This paper presents the application of an algorithm that would accomplish the localisation of the Ocean Systems Lab's Nessie underwater vehicle using measurements from a number of sensors mounted on it. Well known Extended Kalman Filter (EKF) algorithm approach was suggested as a solution for robot self-localisation. Additional practical issue that was addressed in the work is the choice of heading sensor and quality of the obtained heading as an important ingredient of the navigation. Implementation of the Unscented Kalman Filter (UKF) was investigated as potential improvement in working with nonlinearities. Finally, the absolute position observations tend to be quite noisy but very important measurements for navigation. EKF was demonstrated as a tool for sensor fusion and simultaneous filtering of the position measurements. Experiments with recorded real-time sensor data and real missions have been carried out. Their results have been presented as a part of navigation performance test and analysis. 
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION} \label{sec:intro}
+This paper is reporting the application of EKF for localisation of the above mentioned Nessie AUV in an unstructured environment. The concept of sensor fusion was explained. The main contribution is the implementation of an EKF estimator adopted to work on a real underwater vehicle with real-time signals received from sensors. Five degrees of freedom (5DOF) model of the vehicle dynamics was introduced to take the role of the prediction. Work examines the problem from the perspective of engineering a successful AUV navigation in general. The issue of accurate heading and the outliers in absolute position measurement was analysed. Unscented Kalman Filter (UKF) \cite{julier96} was implemented as an attempt to improve the performance and compensate for the shortcomings of the EKF.  
+
+Paper is organised as follows: section \S~\ref{sec:cap} gives an overview of AUV's navigation capabilities. Section \S~\ref{sec:ekf} introduces the theory of EKF. Section \S~\ref{sec:sensors} briefly presents each of the measurement devices. Implementation of the localisation module was detailed in section \S~\ref{sec:implementation}. Finally, results are shown in section \S~\ref{sec:results} ending with conclusions and future work in section \S~\ref{sec:concl}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{NAVIGATION CAPABILITIES OF AUVs} \label{sec:cap}
+\begin{figure}%[htp]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{standard-lbl.pdf}
+  \end{center}
+  \caption{Standard LBL: A - transponder, B - transducer. Acoustic waves are exchanged between A and B. Detected ``time-of-flight'' is used to estimate the distance between, hence the position in the network of transponders.}
+  \vspace{-10pt}
+  \label{fig:lbl}
+\end{figure}
+Primary navigation system in most of the applications, including underwater navigation, is Inertial Navigation System (INS) \cite{lawrence98}. Motion and rotation information obtained this way are processed in order to provide an estimate of objects location with respect to the initial reference. Since such system accumulates noisy data, it introduces the drift errors that need to be occasionally corrected inside the navigation algorithm. Various ways of correcting those errors were developed. Common ``correction tool'' is the incorporation of an absolute position measurement in form of GPS (\S~\ref{sec:sensors}) or acoustic acoustic based LBL (\S~\ref{sec:sensors}) available underwater (Figure ~\ref{fig:lbl}). Absolute position is inferred from the acoustic feedback of transponders so that the vehicle is capable of locating itself with respect to transponder network.
+Carrying out underwater vehicle localisation implies introducing concepts such as \textit{vehicle state} within a navigation strategy framework. Vehicle navigation state describes its position within the environment. Vehicle state is a vector that contains variables relevant for localising the vehicle. In this work, state vector is treated as stochastic - consisted of random variables with Gaussian distribution. As it is the case with random variables, we can say that certain state has an expected value, and that such ``randomness'' can be expressed with the distribution formula, resulting in descriptor values such as mean and standard deviation that fully describe the distribution in particular case of Gaussian. Most notable stochastic state estimator is Kalman Filter (KF). KF works through iterations by employing the process model for making the \textit{state prediction} and the observations for doing the \textit{state correction} \cite{negenborn03}. Real world consists of various nonlinear systems. Practical situations often demand the usage of approximations that eventually lead to linearisation. EKF is a nonlinear version of KF which linearises about the current mean and covariance - hence uses analytic approximations. UKF, on the other hand, is based on sampling \cite{julier96}. Both treat random variable as Gaussian.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{kalman.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SENSORS} \label{sec:sensors}
+Underwater positioning can utilise different types of sensors combined together in one system. The role of the sensors is to measure absolute position, velocities and heading/orientation. Sensor outputs measure with reference either in \textit{body frame} (Figure ~\ref{fig:auv-axes}), the one fixed to the object or in \textit{global frame} (Figure ~\ref{fig:auv-positioning}). Basic navigation sensor set for a high-end AUV usually consists of:% depth sensor, magnetic compass, GPS device, LBL acoustic device, Doppler Velocity Log (DVL) and fibre-optic gyroscope (FOG).
+
+\T{Pressure (depth) sensor} is standard piece of the equipment for an AUV. Measuring the pressure enables the correlation of the value of pressure with the value of depth. Device can frequently ascertain the absolute depth with good precision, within the range of centimetres. 
+
+\T{Magnetic compass} provides 3D vector of local magnetic field. It's main role is orientation measurement, particularly heading (yaw). Magnetic compass points at magnetic north. North direction as it appears on maps points to the geographic north (``true north''). That is the direction towards the rotation axis of the Earth. Magnetic declination is an angle between magnetic north (measured by compass) direction and the true north direction (the one that maps refer to). Depending on location where the compass is used, magnetic declination can vary, hence, calibration is necessary. In addition, different magnetic effects can affect the measurement. Compass delivers absolute measurement of heading, prone to noise.
+
+\T{DVL} is intended to measure linear velocities. Transceiver components mounted on the device, pointing downwards (towards the bottom) emit acoustic impulses which are expected to be reflected and read. In case reflectance exists, DVL is  ``bottom-locked'' and ready to measure.
+ 
+\T{FOG} is based on measuring the interference of two light beams that pass through a coiled optical fibre in both directions. FOG provides quite precise information on rotation as it delivers the angular information: rate of change of heading (yaw rate).
+
+\T{GPS} is a well known satellite-based navigation system that provides position information anywhere on the Earth surface or in the air, reasonably close to the surface. Due to absorption of electromagnetic waves in the water GPS signal is not available underwater. Despite the fact that GPS is not available, vehicles are equipped with GPS receiver intended to be used for initial position information before submerging or for occasional position updates if the vehicle temporarily goes back to the surface. Precision of the GPS position information can vary significantly \cite{farrell98}. Such huge deviation can cause significant inaccuracies in navigation.
+
+\T{LBL} is an acoustic positioning system which provides the absolute position, a ground-based reference. LBL is used for measuring position with respect to several tethered beacons with known position, placed in water (Figure ~\ref{fig:lbl}). LBL transceiver ``pings'' each of the beacons and detects the signal travel time in order to calculate their distance. It can be understood as the extension of the GPS information below the water surface. 
+\begin{figure}
+  \centering
+    \includegraphics[width=0.4\textwidth]{fusion.pdf}
+  \caption{Sensor fusion diagram.}
+\vspace{-10pt}
+\label{fig:sensor-fusion}
+\end{figure}
+EKF fuses the measurements from all the devices together: localisation algorithm collects the incoming sensor information and computes the pose of the vehicle by filtering the data cluster obtained from sensor devices. Such procedure is regarded as \textit{sensor fusion} (Figure ~\ref{fig:sensor-fusion}). Basic sort of sensor fusion implementation is incorporated in navigation algorithm by combining different quantities into a jointly updated state vector with position, orientation and velocities (\S~\ref{sec:implementation}).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{implementation.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{results.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtolength{\textheight}{-3cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{CONCLUSIONS AND FUTURE WORKS} \label{sec:concl}
+\subsection{Conclusions}
+The main focus of the work presented is practical application of Extended Kalman Filter for Ocean System Lab's Nessie AUV navigation module. EKF was designed to estimate the location of an underwater robot by processing real-time inertial and position information obtained from sensors. Furthermore, EKF algorithm was utilized as a framework for accomplishing sensor fusion - blending together measurements from different sensors as a part of the estimation process. The issues that were addressed in the thesis include suitable management of measurement tasks among mounted sensor devices and the role of EKF in correcting deficiencies. Specific case of heading measurement was tested, since this type of angular information is particularly important for the navigation. In conclusion, EKF proves to be useful navigation tool with several convenient features: capable of successfully combining together different sensory information into a location estimate that tends to be optimal with respect to set expectations, or recovering from the missing measurements, corrupted position information, outliers, or signal noise. Implementation of UKF for localisation would improve the accuracy of approximating nonlinearities in EKF at the same computational cost.
+%satisfactory navigation performance and 
+\subsection{Future Works}
+Future work on improving localisation performance involves more trials with the vehicle trajectory fixed to known landmarks, so that the results of localisation could be thoroughly evaluated with trustful ground truth. Experiments that involve tilted vehicle movements could make an evaluation of the influence of the 5th DOF on the quality of localisation. EKF could be improved so that it works with control inputs - which could contribute in robustness of the localisation. Finally, the problem of correcting the absolute position with LBL information gives space for improvement since the measured position tends to be quite uncertain and prone to different sorts of noise. Solution for rejecting outliers could rely on some version of back-filtering - filtering based on history of received observations.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ACKNOWLEDGMENTS}
+Author would like to thank VIBOT consortium and European Commission for sponsoring.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%\begin{thebibliography}{99}
+%%%%
+%%%%\bibitem{c1}
+%%%%J.G.F. Francis, The QR Transformation I, {\it Comput. J.}, vol. 4, 1961, pp 265-271.
+%%%%
+%%%%\bibitem{c2}
+%%%%H. Kwakernaak and R. Sivan, {\it Modern Signals and Systems}, Prentice Hall, Englewood Cliffs, NJ; 1991.
+%%%%
+%%%%\bibitem{c3}
+%%%%D. Boley and R. Maier, "A Parallel QR Algorithm for the Non-Symmetric Eigenvalue Algorithm", {\it in Third SIAM Conference on Applied Linear Algebra}, Madison, WI, 1988, pp. A20.
+%\end{thebibliography}
+
+\bibliographystyle{plain}
+\bibliography{refs}
+%\nocite{*}
+
+\end{document}
