@@ -1,6 +1,6 @@
 close all; clear all; clc;
 
-EXPORT_IMAGES = 0;
+EXPORT_IMAGES = 1;
 
 InputMessages  =  importdata('logFile.input',  ',');
 Observations   = csvread('logFile.obser');
@@ -76,7 +76,7 @@ legend('dead recon', 'gps', 'ekf');
 set(gcf, 'Position', get(0,'Screensize')); % Maximize figure.
 if(EXPORT_IMAGES),
             set(gcf, 'Color', 'none');  
-            square1-no-gps.eps -eps -a1;
+            export_fig square1-no-gps.eps -eps -a1;
 end
 
 time = cumsum(InputMessages(:,1));
@@ -150,7 +150,8 @@ plot(time, OutputMessages(:,6), 'r');
 % plot(time, OutputMessages(:,6)-2*sqrt(OutputMessages(:,17)),'k-.');
 legend('measured', 'filtered'); %, '2\sigma boundary'
 ylabel(' sway vel [m/s]');
-set(gcf, 'Position', get(0,'Screensize')); % Maximize figure.
+xlabel('time [s]');
+%set(gcf, 'Position', get(0,'Screensize')); % Maximize figure.
  if(EXPORT_IMAGES),
      set(gcf, 'Color', 'none');  
      export_fig dynamics.eps -eps -a1;

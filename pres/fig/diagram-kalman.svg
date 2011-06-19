@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2852"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="diagram-kalman.eps">
+  <defs
+     id="defs2854">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path3730"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Sstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Sstart"
+       style="overflow:visible">
+      <path
+         id="path3733"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.3) translate(-2.3,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3706"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path3709"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.4) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path3703"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2860" />
+    <inkscape:perspective
+       id="perspective3644"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3672"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2902"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2847"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2874"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2899"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2924"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2955"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2977"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart-0"
+       style="overflow:visible">
+      <path
+         id="path3709-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.4,0,0,0.4,4,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective2877"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2912"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#ffffff"
+     borderopacity="0.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="0"
+     inkscape:zoom="0.175"
+     inkscape:cx="-381.30821"
+     inkscape:cy="165.20833"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="693"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata2857">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:46.09428787px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-1173.5078"
+       y="320.96509"
+       id="text2882"><tspan
+         sodipodi:role="line"
+         id="tspan2884"
+         x="-1173.5078"
+         y="320.96509"
+         style="font-size:140px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10">Time Update</tspan><tspan
+         sodipodi:role="line"
+         x="-1173.5078"
+         y="495.96509"
+         id="tspan2886"
+         style="font-size:140px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10">(&quot;Predict&quot;)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:46.09428787px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="266.56317"
+       y="279.83179"
+       id="text2888"><tspan
+         sodipodi:role="line"
+         id="tspan2890"
+         x="266.56317"
+         y="279.83179"
+         style="font-size:140px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10">Measurement</tspan><tspan
+         sodipodi:role="line"
+         x="266.56317"
+         y="454.83179"
+         style="font-size:140px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10"
+         id="tspan2941"> Update</tspan><tspan
+         sodipodi:role="line"
+         x="266.56317"
+         y="629.83179"
+         id="tspan2892"
+         style="font-size:140px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10">(&quot;Correct&quot;)</tspan></text>
+    <path
+       transform="matrix(1.7028866,0,0,1.7028866,-264.6179,-602.45254)"
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path2862-2-2"
+       sodipodi:cx="-534.28571"
+       sodipodi:cy="792.36218"
+       sodipodi:rx="411.42856"
+       sodipodi:ry="411.42856"
+       d="m -122.85715,792.36218 a 411.42856,411.42856 0 1 1 -822.85711,0 411.42856,411.42856 0 1 1 822.85711,0 z" />
+    <path
+       sodipodi:nodetypes="cc"
+       id="path9636"
+       d="M -33.009879,1412.0404 C -682.09463,2483.0231 -1256.0274,1441.9148 -1258.798,1442.5384"
+       style="fill:none;stroke:#000000;stroke-width:10.31973362;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-mid:none;marker-end:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-1193.1609"
+       y="662.99585"
+       id="text2835"><tspan
+         sodipodi:role="line"
+         id="tspan2837"
+         x="-1193.1609"
+         y="662.99585"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10 Bold">1. <tspan
+   style="font-size:130px;font-style:italic;font-weight:bold;text-align:center;text-anchor:middle;-inkscape-font-specification:BKM-cmr10 Bold Italic"
+   id="tspan2865">state estimate</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="-1193.1609"
+         y="825.49585"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10"
+         id="tspan2857">(mean)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-1175.0511"
+       y="1010.7051"
+       id="text2835-4"><tspan
+         sodipodi:role="line"
+         x="-1175.0511"
+         y="1010.7051"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10"
+         id="tspan2859">2. <tspan
+   style="font-size:130px;font-style:italic;font-weight:bold;-inkscape-font-specification:BKM-cmr10 Bold Italic"
+   id="tspan2867">state uncertainty</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="-1175.0511"
+         y="1173.2051"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10"
+         id="tspan2863">(error covariance)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:46.09428787px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-165.91962"
+       y="786.69196"
+       id="text2835-9"><tspan
+         sodipodi:role="line"
+         id="tspan2837-0"
+         x="-165.91962"
+         y="786.69196"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10">1. Kalman gain</tspan></text>
+    <path
+       transform="matrix(1.7141218,0,0,1.7141218,1177.8073,-602.04248)"
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path2862-2-2-9"
+       sodipodi:cx="-534.28571"
+       sodipodi:cy="792.36218"
+       sodipodi:rx="411.42856"
+       sodipodi:ry="411.42856"
+       d="m -122.85715,792.36218 a 411.42856,411.42856 0 1 1 -822.85711,0 411.42856,411.42856 0 1 1 822.85711,0 z" />
+    <path
+       sodipodi:nodetypes="cc"
+       id="path9636-4"
+       d="M -1266.142,36.349608 C -543.09174,-894.53403 -32.042662,115.50103 -29.211032,115.16774"
+       style="fill:none;stroke:#000000;stroke-width:9.97652435;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-mid:none;marker-end:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:130px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-417.71509"
+       y="937.93079"
+       id="text2835-0"><tspan
+         sodipodi:role="line"
+         x="-417.71509"
+         y="937.93079"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10 Bold"
+         id="tspan2857-7">2. <tspan
+   style="font-size:130px;font-style:italic;font-weight:bold;-inkscape-font-specification:BKM-cmr10 Bold Italic"
+   id="tspan2865-8">state estimate </tspan><tspan
+   style="font-weight:normal;-inkscape-font-specification:BKM-cmr10"
+   id="tspan2864">(mean) </tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="277.84595"
+       y="1092.0614"
+       id="text2835-4-8"><tspan
+         sodipodi:role="line"
+         x="277.84595"
+         y="1092.0614"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10"
+         id="tspan2859-8">3. <tspan
+   style="font-size:130px;font-style:italic;font-weight:bold;-inkscape-font-specification:BKM-cmr10 Bold Italic"
+   id="tspan2867-5">state uncertainty</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="277.84595"
+         y="1254.5614"
+         style="font-size:130px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:BKM-cmr10;-inkscape-font-specification:BKM-cmr10"
+         id="tspan2863-8">(error covariance)</tspan></text>
+  </g>
+</svg>

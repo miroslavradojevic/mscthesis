@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/src/filt.cpp
+filt.h
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/src/filt.h
+
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/src/filt.h
+vector
+-
+OceanLIB/Processing/olibKalmanFilter.h
+-
+OceanLIB/Processing/olibKalmanMeasure.h
+-
+OceanLIB/Abstraction/olibVector.h
+-
+OceanLIB/Abstraction/olibMatrix.h
+-
+iostream
+-
+fstream
+-
+

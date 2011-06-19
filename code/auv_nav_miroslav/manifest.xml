@@ -1,0 +1,20 @@
+<package>
+  <description brief="A basic navigator node for an AUV.">
+
+    This simple navigator node serves as an example of hybrid use of Heriot-Watt Unversity's internal OceanSHELL/ALI messages for sensor data, and ROS messages for the higher levels.  
+
+  </description>
+  <author>Joel Cartwright</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>TODO</url>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+  <depend package="nav_msgs"/>
+  <depend package="tf"/>
+  <depend package="osl_core"/>
+  <depend package="auv_msgs"/>
+  <depend package="legacy_osh"/>
+
+</package>
+

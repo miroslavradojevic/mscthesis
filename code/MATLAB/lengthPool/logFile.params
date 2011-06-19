@@ -1,0 +1,17 @@
+SDnorth: 0.200000 
+SDeast: 0.200000 
+SDdepth: 0.050000 
+SDaltitude: 0.050000 
+SDu: 0.020000 
+SDv: 0.020000 
+SDw: 0.050000 
+SDyaw: 0.120000 
+SDpitch: 0.050000 
+SDyawRate: 0.030000 
+SDpitchRate: 0.080000 
+SDuModel: 0.050000 
+SDvModel: 0.050000 
+SDwModel: 0.020000 
+SDyawRateModel: 0.080000 
+SDpitchRateModel: 0.080000 
+PeriodEKF: 150 

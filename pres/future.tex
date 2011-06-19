@@ -1,0 +1,25 @@
+\begin{frame}\frametitle{Future Work}
+\begin{itemize}
+\item More trials, particularly ones where the vehicle trajectory has been fixed to known landmarks so that the results of localisation could be thoroughly evaluated with trustful ground truth
+%
+% \\
+%{\scriptsize 
+%\hspace{0.5cm} capable of successfully combining together different sensory information (\textit{sensor fusion}) \\
+%\hspace{0.5cm} estimate that tends to be optimal with respect to set expectations \\
+%\hspace{0.5cm} recovering from the missing measurements \\
+%\hspace{0.5cm} filtering corrupted position information, outliers, or signal noise \\
+%}
+%EKF is a great tool since it tries to satisfy the set uncertainty boundaries and fuse all the available information trying to make the most out of it combined together in one mathematical system. %- ``filtration with semantics''
+%\\
+\item Navigation of the tilted vehicle movements in order to make an evaluation of the influence of the 5th d.o.f
+
+%\\ One of the issues that were addressed was the s
+\item EKF could be improved so that it works with control inputs
+%\\
+%\item Sensor fusion was explored as mean of improving the estimation
+%\\
+\item Filtering of the noisy absolute position gives space for improvement. Solution for rejecting outliers could rely on some version of \textit{back-filtering} - filtering based on history of received observations.% since the measured position tends to be quite uncertain and prone to different sorts of noise. 
+
+
+\end{itemize} 
+\end{frame}

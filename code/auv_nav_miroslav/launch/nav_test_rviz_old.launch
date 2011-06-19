@@ -1,0 +1,7 @@
+<launch>
+	<param name="robot_description" command="cat $(find auv_description)/urdf/nessie5_old.urdf" />	
+
+	<node pkg="rviz" name="rviz" type="rviz" args="--display-config $(find auv_nav)/nav_test_rviz_old.vcg"/>
+
+</launch>
+

@@ -1,0 +1,4 @@
+EKF navigation module
+
+I tried to leave as much as possible comments in the code...
+There is filt.h and filt.cpp in src folder - they contain all the necessary declarations and definitions for the EKF (and any other new Kalman filter). It's intended to keep the filtering tasks.

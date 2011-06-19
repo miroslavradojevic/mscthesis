@@ -1,0 +1,27 @@
+function tryIt
+figure;
+plotPool(0,0,-20,12,5);
+disp('end...');
+
+function plotPool(CORNER_N, CORNER_E, POOL_ORIENTATION, LENGTH, WIDTH)
+POOL_ORIENTATION = (POOL_ORIENTATION*pi)/180;
+
+CORNER_N_1 = CORNER_N+cos(POOL_ORIENTATION)*LENGTH;
+CORNER_E_1 = CORNER_E+sin(POOL_ORIENTATION)*LENGTH;
+
+CORNER_N_2 = CORNER_N_1+sin(POOL_ORIENTATION)*WIDTH;
+CORNER_E_2 = CORNER_E_1-cos(POOL_ORIENTATION)*WIDTH;
+
+CORNER_N_3 = CORNER_N_2-cos(POOL_ORIENTATION)*LENGTH;
+CORNER_E_3 = CORNER_E_2-sin(POOL_ORIENTATION)*LENGTH;
+
+%figure;
+plot(CORNER_E, CORNER_N, 'go', 'LineWidth',2); hold on; axis equal;
+plot(CORNER_E_1, CORNER_N_1, 'go', 'LineWidth',2); 
+plot(CORNER_E_2, CORNER_N_2, 'go', 'LineWidth',2); 
+plot(CORNER_E_3, CORNER_N_3, 'go', 'LineWidth',2); 
+
+line([CORNER_E; CORNER_E_1], [CORNER_N; CORNER_N_1], 'LineWidth',2);
+line([CORNER_E_1; CORNER_E_2], [CORNER_N_1; CORNER_N_2], 'LineWidth',2);
+line([CORNER_E_2; CORNER_E_3], [CORNER_N_2; CORNER_N_3], 'LineWidth',2);
+line([CORNER_E_3; CORNER_E], [CORNER_N_3; CORNER_N], 'LineWidth',2);

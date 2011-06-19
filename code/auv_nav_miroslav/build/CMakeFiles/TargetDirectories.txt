@@ -1,0 +1,16 @@
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/ROSBUILD_genmsg_lisp.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/clean-test-results.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/nav_ekf_new.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/rosbuild_precompile.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/rosbuild_premsgsrvgen.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/rospack_genmsg.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/rospack_genmsg_libexe.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/rospack_gensrv.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/test.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/test-future.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/test-results.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/test-results-run.dir
+/home/miroslav/bazaar_code/Nessie/Trunk/ros/hwu_osl_experimental/auv_nav_miroslav/build/CMakeFiles/tests.dir

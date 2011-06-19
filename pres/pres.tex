@@ -26,8 +26,47 @@
 }
 
 \usepackage{graphicx}
+%\usepackage{subfloat}
 \usepackage{subfigure}
-%\usepackage{bm} 
+\usepackage{pifont, bbding, colortbl}
+%\usepackage[lofdepth,lotdepth]{subfig}
+%\usepackage{epsf,
+%			epstopdf,
+%			graphicx,
+%			xcolor, 
+%			latexsym,
+%			amssymb,
+%			amsmath,
+%			anysize, % for margins left, right top bottom
+%			setspace,
+%			cite,
+%			moreverb,
+%			fancyhdr, %does the headers on the pages - keep in
+%			amsmath,
+%			algorithm,
+%			url,
+%			%hyperref,
+%			algorithm,
+%			algorithmic,
+%			subfigure,
+%			algorithm,
+%			booktabs,
+%			multirow, % table
+%			wrapfig,
+%			tabularx,  % table tool
+%			colortbl,  % color in table
+%			multirow,  % table package
+%			rotating,  % 
+%			empheq,    % 
+%			bbding,    % for table details
+%			pifont,     % for table details
+%			fmtcount			
+%			}
+
+\usepackage{bm} 
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\setbeamertemplate{caption}[numbered]
+%\setbeamertemplate{caption}[Fig]
 % For typesetting bold math (not \mathbold)
 %%%\logo{
 %%%	  \includegraphics[height=0.6cm]{fig/ubLogo.pdf}
@@ -51,49 +90,79 @@ Universit\`{e} de Bourgogne \\
 % Alternatively, you can specify a date.
 
 %%%% define logo
-\pgfdeclareimage[height=0.5cm]{hw}{fig/hwLogo.pdf}
+\pgfdeclareimage[height=0.6cm]{hw}{fig/hwLogo.pdf}
+\pgfdeclareimage[height=0.6cm]{udg}{fig/udgLogo.pdf}
+\pgfdeclareimage[height=0.6cm]{ub}{fig/ubLogo.pdf}
 
 
 \begin{document}
-%
+\input{shortcuts.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \titlepage
+\pgfuseimage{udg}
+\pgfuseimage{ub}
 \pgfuseimage{hw}
 \end{frame}
-%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Motivation}
-\begin{block}
-{Why underwater?}
-\begin{figure}
-\centering
-\subfigure[Edinburgh, city centre. Location: $ 55^{\circ} \; 57 ^{\backprime} \; 16 ^{\backprime \backprime} \; N \; 3^{\circ} \; 11 ^{\backprime} \; 58 ^{\backprime \backprime} \; W $. Area: $\approx 400 \times 300 m $ ] 
-{\label{fig:edinburgh} \includegraphics[width=0.35\linewidth]{fig/edinburgh.pdf}} 
-\subfigure[... 1300 km away, Norwegian sea. . Area: $ \approx 700 \times 300 km $ ] 
-{\label{fig:norwegian-sea}\includegraphics[width=0.35\linewidth]{fig/norwegianSea.pdf}}
-\end{figure}
-\end{block}
-\begin{block}
-To conquer the - we need to navigate through.
-\end{block}
-\end{frame}
+
+\input{motivation.tex}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Sensors Description}
-Brief description of navigation sensors.
-\end{frame}
+
+\input{nav.tex}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\frametitle{Kalman Filter Theorem}
-%\begin{theorem}
-%Prediction - Correction idea.
-%Probabilities.
-%Nonlinearity.
-%EKF, UKF.
-%\end{theorem}
-%\end{frame}
-%%%%%
+
+\input{sensors.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{state.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sys-model.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{ekf.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{ukf.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{fusion.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{why-kalman.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{missions-spiral.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{issues.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{missions-rec.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{concl.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{future.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %\frametitle{Kalman fusion strategy}
 %Describe the algorithm used.
@@ -109,12 +178,11 @@ Brief description of navigation sensors.
 %2d plots of some missions.
 %Experimental results in real environment presented.
 %\end{frame}
-%%%%%
-%\begin{frame}
-%\frametitle{Accuracy of the system}
-%Interpretation of the results.
-%\end{frame}
-%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{results.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}[fragile] % Notice the [fragile] option beside \begin{frame} %
 %\frametitle{Verbatim}
 %\begin{example}[Putting Verbatim]
@@ -130,20 +198,47 @@ Brief description of navigation sensors.
 %\end{example}
 %\end{frame}
 
-\begin{frame}[fragile]  % notice the fragile ooption, since the body
-			% contains a verbatim command
-Example of the \verb|\cite| command to give a reference is below:
-
-With an example of citation, \cite{key1}, we may proceed to the Bibliograhy section.
-\end{frame}
+%%%\begin{frame}[fragile]  % notice the fragile ooption, since the body
+%%%			% contains a verbatim command
+%%%Example of the \verb|\cite| command to give a reference is below:
+%%%
+%%%With an example of citation, \cite{ribas10}, we may proceed to the Bibliograhy section.
+%%%\end{frame}
 
 \begin{frame}
 \frametitle{References}
 \footnotesize{
 \begin{thebibliography}{99}
- \bibitem[Label1, 2010]{key1} Author's name (1987)
- \newblock Title of the paper.
- \newblock \emph{Journal Name} 55(4), 765 -- 799.
+
+%      \bibitem{ribas10} 
+%      D. Ribas, P. Ridao, and J. Neira.
+%      \newblock {U}nderwater {S}lam for {S}tructured {E}nvironments using an {I}maging {S}onar
+%      \newblock {\em Springer Verlag, 2010}
+
+ \bibitem{ribas10} D. Ribas, P. Ridao, and J. Neira. (2010)
+ \newblock {U}nderwater {S}lam for {S}tructured {E}nvironments using an {I}maging {S}onar. \newblock \emph{\em Springer Verlag} 
+%  
+ 
+ \bibitem{julier96} Julier, S. and Uhlmann, J.K. (1996)
+ \newblock {A} general method for approximating nonlinear transformations of probability distributions.
+ \newblock \emph{\em Robotics Research Group, Department of Engineering Science, University of Oxford}
+ 
+ \bibitem{thrun05}  S. Thrun, W. Burgard, and D. Fox. (2005)
+ \newblock {P}robabilistic robotics
+ \newblock {\em MIT Press}	
+ 
+ \bibitem{grewal01} Grewal, M.S. and Andrews, A.P. (2001)
+ \newblock {K}alman filtering: theory and practice using MATLAB.
+ \newblock {\em Wiley Online Library}
+  
+ \bibitem{ristic04} Ristic, B. and Arulampalam, S. and Gordon, N. (2004)
+ \newblock {B}eyond the Kalman filter: Particle filters for tracking applications.
+ \newblock {\em Artech House Publishers}
+
+% \bibitem{farrell98} Jay Farrell and Jay A. Farrell (1998)
+% \newblock {T}he Global Positioning System \& Inertial Navigation.
+% \newblock {\em McGraw-Hill Professional} 
+       
 \end{thebibliography}
 }
 \end{frame}
